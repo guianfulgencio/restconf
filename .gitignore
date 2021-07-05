@@ -1,4 +1,4 @@
-cml_lab/script/__pycache__
+cml_lab/scripts/__pycache__
 *.txt
 backup_configs
 *.log
