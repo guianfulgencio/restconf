@@ -1,7 +1,7 @@
 lab:
   description: PHHQ Dev lab for 9200 switches
   notes: ''
-  timestamp: 1625566696.754188
+  timestamp: 1625475994.6860254
   title: PHHQ_Dev_Infra
   version: 0.0.3
 nodes:
@@ -341,10 +341,10 @@ nodes:
       !\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface GigabitEthernet1\n\
       \ description 7th Floor LAN segment\n ip address 146.40.114.5 255.255.255.0\n\
       \ ip helper-address 146.40.224.19\n no ip redirects\n no ip proxy-arp\n negotiation\
-      \ auto\n no mop enabled\n no mop sysid\n no shutdown\n!\ninterface GigabitEthernet2\n\
-      \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n\
-      !\ninterface GigabitEthernet3\n no ip address\n shutdown\n negotiation auto\n\
-      \ no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n no ip address\n\
+      \ auto\n no mop enabled\n no mop sysid\n no shutdown\n!\ninterface GigabitEthernet2\n no ip\
+      \ address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\n\
+      interface GigabitEthernet3\n no ip address\n shutdown\n negotiation auto\n no\
+      \ mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n no ip address\n\
       \ shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\nno ip forward-protocol\
       \ nd\nno ip forward-protocol udp tftp\nno ip forward-protocol udp nameserver\n\
       no ip forward-protocol udp domain\nno ip forward-protocol udp time\nno ip forward-protocol\
@@ -516,15 +516,15 @@ nodes:
         slot: 3
         label: GigabitEthernet4
         type: physical
-  - id: n2
+  - id: n6
     label: PHHQ06FSL02-DEV
     node_definition: csr1000v
     x: -500
     y: -200
-    configuration: "Building configuration...\n\nCurrent configuration : 21870 bytes\n\
-      !\n! Last configuration change at 09:18:44 UTC Mon Jul 5 2021 by admin\n!\n\
-      version 16.11\nservice tcp-keepalives-in\nservice tcp-keepalives-out\nservice\
-      \ timestamps debug datetime msec localtime show-timezone\nservice timestamps\
+    configuration: "Building configuration...\n\nCurrent configuration : 22692 bytes\n\
+      !\n! Last configuration change at 09:18:38 UTC Mon Jul 5 2021 by admin\n!\n\
+      version 16.11\nno service pad\nservice tcp-keepalives-in\nservice tcp-keepalives-out\n\
+      service timestamps debug datetime msec localtime show-timezone\nservice timestamps\
       \ log datetime msec localtime show-timezone\nservice password-encryption\nservice\
       \ call-home\nplatform qfp utilization monitor load 80\nno platform punt-keepalive\
       \ disable-kernel-core\nplatform console serial\n!\nhostname PHHQ06FSL02-DEV\n\
@@ -552,154 +552,160 @@ nodes:
       \ lookup source-interface GigabitEthernet1\nip domain name phhq.chevrontexaco.net\n\
       !\n!\n!\nlogin on-success log\n!\n!\n!\n!\n!\n!\n!\nsubscriber templating\n\
       !\n!\n!\n!\n!\n!\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n\
-      !\n!\n!\n!\n!\n!\ncrypto pki trustpoint SLA-TrustPoint\n enrollment pkcs12\n\
-      \ revocation-check crl\n!\ncrypto pki trustpoint TP-self-signed-439167541\n\
-      \ enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-439167541\n\
-      \ revocation-check none\n rsakeypair TP-self-signed-439167541\n!\n!\ncrypto\
-      \ pki certificate chain SLA-TrustPoint\n certificate ca 01\n  30820321 30820209\
-      \ A0030201 02020101 300D0609 2A864886 F70D0101 0B050030\n  32310E30 0C060355\
-      \ 040A1305 43697363 6F312030 1E060355 04031317 43697363\n  6F204C69 63656E73\
-      \ 696E6720 526F6F74 20434130 1E170D31 33303533 30313934\n  3834375A 170D3338\
-      \ 30353330 31393438 34375A30 32310E30 0C060355 040A1305\n  43697363 6F312030\
-      \ 1E060355 04031317 43697363 6F204C69 63656E73 696E6720\n  526F6F74 20434130\
-      \ 82012230 0D06092A 864886F7 0D010101 05000382 010F0030\n  82010A02 82010100\
-      \ A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D\n  CBB4C798 212AA147\
-      \ C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520\n  1C394D78 462EF239\
-      \ C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE\n  4AA4E80D DB6FD1C9\
-      \ 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC\n  7390A3EB 2B5436AD\
-      \ C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188\n  68E69491 20F320E7\
-      \ 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7\n  C7479096 B4CB2D62\
-      \ EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191\n  C55F0D76 61F9A4CD\
-      \ 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44\n  DFC7C6CF 04DD7FD1\
-      \ 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201\n  06300F06 03551D13\
-      \ 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85\n  4B3D31E5 1B3E6A17\
-      \ 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500\n  03820101 00507F24\
-      \ D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905\n  604EDCDE FF4FED2B\
-      \ 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B\n  D98987BF E40CBD9E\
-      \ 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8\n  467A3DF4 4D565700\
-      \ 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C\n  7CA7B7E6 C1AF74F6\
-      \ 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B\n  5FB0DA06 B92AFE7F\
-      \ 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678\n  80DDCD16 D6BACECA\
-      \ EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB\n  418616A9 4093E049\
-      \ 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0\n  D697DF7F 28\n  \t\
-      quit\ncrypto pki certificate chain TP-self-signed-439167541\n certificate self-signed\
-      \ 01\n  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030\n\
-      \  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274\n\
-      \  69666963 6174652D 34333931 36373534 31301E17 0D323130 37303530 39313033\n\
-      \  335A170D 33303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F\n\
-      \  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3433 39313637\n\
-      \  35343130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02\n\
-      \  82010100 A5CC66A5 6E0AA791 5D13F33F D2804048 DC82CE63 0E46C564 ACB4D27D\n\
-      \  0D71B909 2DF61371 98F4C993 F26DFD62 CF984ED5 33CE30F4 4B9D2B3A 3294F12A\n\
-      \  9B4DE78C E87F2C8F 07775DAB 694ED254 6217C1AD 4778D3A8 63A3EAB7 3C57F084\n\
-      \  321846A8 0AB9D79D EC897D37 688194C8 591B2C27 98AB22D5 CF655486 2D2070AF\n\
-      \  CCD68990 95A471F4 235DC6A2 075DCBA9 8B271AA2 EAF6755D 7511041C 6ABD9342\n\
-      \  2E3FC381 2DE27207 D0BB02EB EB7077C2 90958D55 3362D5D3 D0D30498 C189D92A\n\
-      \  FCAD1EFF 7972D5E3 06F3C408 168891EA A19FFD01 F02F02FF 3456AE25 E9D4B799\n\
-      \  7DED22DA 5BDB4703 0DEC872B 4823D3CE DF887D47 F0BFAAE4 16E4DA92 6B658DE5\n\
-      \  F44194C9 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F\n\
-      \  0603551D 23041830 1680141F 8A3CF195 060AF281 1F71E193 A86FFAD5 E52EE630\n\
-      \  1D060355 1D0E0416 04141F8A 3CF19506 0AF2811F 71E193A8 6FFAD5E5 2EE6300D\n\
-      \  06092A86 4886F70D 01010505 00038201 01008B1A 3BB72B5D 61127AEF 8FB0B09F\n\
-      \  AE23EA1C 2421F348 EABCEAB6 52159B4F 54108174 09DC1DE1 F8131D19 9196FBD1\n\
-      \  EC741FB5 ED25CF31 35629280 289336DC 19F0C5DB DAD05FF6 42B38444 7E57AB74\n\
-      \  7558EC5C 6CBA97CF 48AC4AB5 5230CBEC 61DE87CD 5F46EB4A BE4BC97D 4DA23A4A\n\
-      \  F8CBBBFE 0B6116BD C5E049A5 5CECE483 26EEDA31 6481E039 3DD2066C 1B32F4E9\n\
-      \  A7ABF36E F19A574B 899633FB 060B5428 75587AFA 223CF931 651F5AC4 906AA8A1\n\
-      \  124B8760 B2EC7E97 5170DD02 6979830E B3D0C2A5 72BCB55A AC5E354C CB448FA0\n\
-      \  AFA5B678 E8AD34AE EDC9BEAC 7B1DD3CC E04022B9 2177AADF 3CD9F329 944AA757\n\
-      \  F85C1864 21347490 F64092C8 E5A75C81 7C13\n  \tquit\n!\nlicense udi pid CSR1000V\
-      \ sn 9EFJC1RD1GV\ndiagnostic bootup level minimal\n!\nspanning-tree mode rapid-pvst\n\
+      !\n!\n!\n!\n!\n!\ncrypto pki trustpoint TP-self-signed-745418254\n enrollment\
+      \ selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-745418254\n revocation-check\
+      \ none\n rsakeypair TP-self-signed-745418254\ncrypto key generate rsa modulus 2048\n!\ncrypto pki trustpoint SLA-TrustPoint\n\
+      \ enrollment pkcs12\n revocation-check crl\n!\n!\ncrypto pki certificate chain\
+      \ TP-self-signed-745418254\n certificate self-signed 01\n  3082032E 30820216\
+      \ A0030201 02020101 300D0609 2A864886 F70D0101 05050030\n  30312E30 2C060355\
+      \ 04031325 494F532D 53656C66 2D536967 6E65642D 43657274\n  69666963 6174652D\
+      \ 37343534 31383235 34301E17 0D323130 37303530 32303334\n  355A170D 33303031\
+      \ 30313030 30303030 5A303031 2E302C06 03550403 1325494F\n  532D5365 6C662D53\
+      \ 69676E65 642D4365 72746966 69636174 652D3734 35343138\n  32353430 82012230\
+      \ 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02\n  82010100 AF1D9826\
+      \ 3E1942E1 6D6ADB44 98B3BE3B B7D69DCF D03C7300 6F124F3C\n  A0C07765 473E4A0A\
+      \ 6B51387B 964C1E82 9ABDCFD4 6D88094B 648474E9 850044CF\n  2834F190 DA269BDE\
+      \ 16635F81 3DEAF568 A0E56E5E C36121D5 CE865DFC BDC7DF4F\n  9E2932F9 D699B351\
+      \ 5EB08137 791A44AB ABF3E54D 783D3851 2B42BB59 4D1D6B59\n  7BC493CD AA2C6825\
+      \ 5B5C7E95 3AFF7EA1 CED84891 E66A3695 BBA7D5AF 69163B92\n  E70282DF A23DEF9F\
+      \ 126948D6 4A6D68F6 47B65AFB 3D4C9BB5 103C883D 4455BCE0\n  0C845548 D5D5F04A\
+      \ 6C7612C3 FD90F766 239A18AA 637B513F 9929BE49 16A02F26\n  A1EECCB3 02A0481D\
+      \ BB477529 8D430DD9 C784E505 CBA0835E 40F1C2CD 2FE3ED2C\n  97ED5EBD 02030100\
+      \ 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F\n  0603551D 23041830\
+      \ 168014F9 8108C932 1714FF0D 038F11F6 5883DE90 BB3B1230\n  1D060355 1D0E0416\
+      \ 0414F981 08C93217 14FF0D03 8F11F658 83DE90BB 3B12300D\n  06092A86 4886F70D\
+      \ 01010505 00038201 010050C7 CF961574 A9B8287A 1E9C9637\n  E22763B3 95BD7DD2\
+      \ 9820D769 EF2945ED 41CFC91E 073FD4AE EE567518 1B563F06\n  21851D88 1C653330\
+      \ 4BF8B4C9 7B41BDF3 ACB2418C DD2D3BFB D50C6496 13524B2E\n  10642AE5 7FCF057A\
+      \ A40923F3 948D63A6 4BA7417E EA7DB512 F84BB4AD 5223527F\n  DC0DC074 5DDD5B67\
+      \ D195E1EA 7BBE5A09 70F44865 738F3E7B 33924A1B 20907341\n  2FF18A45 4B59CF33\
+      \ 55CBE99D A8223077 9F669DD0 5D0D97CD F35E7F4B F1988D53\n  3CCFD1AF D1B10CE8\
+      \ CC23F489 23C64F53 FB525091 74B9F14C C1E874EA F625369F\n  9D34C83C B48B1ED5\
+      \ 8E2A12CE 32D0A771 F7724D12 4553290C 8EBA91B5 7B724351\n  8AEFF655 1C43B295\
+      \ 18B0F5F0 7462BFE1 1932\n  \tquit\ncrypto pki certificate chain SLA-TrustPoint\n\
+      \ certificate ca 01\n  30820321 30820209 A0030201 02020101 300D0609 2A864886\
+      \ F70D0101 0B050030\n  32310E30 0C060355 040A1305 43697363 6F312030 1E060355\
+      \ 04031317 43697363\n  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31\
+      \ 33303533 30313934\n  3834375A 170D3338 30353330 31393438 34375A30 32310E30\
+      \ 0C060355 040A1305\n  43697363 6F312030 1E060355 04031317 43697363 6F204C69\
+      \ 63656E73 696E6720\n  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101\
+      \ 05000382 010F0030\n  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6\
+      \ 17222EA1 F1EFF64D\n  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A\
+      \ 9CAE6388 8A38E520\n  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3\
+      \ 700A8BF7 D8F256EE\n  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7\
+      \ 104FDC5F EA2956AC\n  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3\
+      \ C0BD23CF 58BD7188\n  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F\
+      \ 539BA42B 42C68BB7\n  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4\
+      \ 5D5D5FB8 8F27D191\n  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B\
+      \ DF5F4368 95135E44\n  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F\
+      \ 0101FF04 04030201\n  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D\
+      \ 0E041604 1449DC85\n  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648\
+      \ 86F70D01 010B0500\n  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0\
+      \ 49631C78 240DA905\n  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB\
+      \ 9093D3B1 6C9E3D8B\n  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646\
+      \ 5575B146 8DFC66A8\n  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC\
+      \ 11BA9CD2 55A9232C\n  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86\
+      \ C71E3B49 1765308B\n  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229\
+      \ C37C1E69 39F08678\n  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A\
+      \ B623CDBD 230E3AFB\n  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE\
+      \ 0275156F 719BB2F0\n  D697DF7F 28\n  \tquit\n!\nlicense udi pid CSR1000V sn\
+      \ 9UV1P8V3R2W\ndiagnostic bootup level minimal\n!\nspanning-tree mode pvst\n\
       spanning-tree extend system-id\nmemory free low-watermark processor 80526\n\
-      !\nnetconf-yang\n!\nrestconf\n!\nusername admin secret 5 $1$w9GP$vLlKiZX.s0SvYH//p0Zqi.\n\
-      !\nredundancy\n!\n!\n!\n!\n!\n!\ncdp run\n!\nclass-map match-any system-cpp-police-topology-control\n\
+      !\n!\nrestconf\n!\nusername admin secret 5 $1$w9GP$vLlKiZX.s0SvYH//p0Zqi.\n\
+      !\nredundancy\n!\n!\n!\n!\n!\n!\n!\nclass-map match-any system-cpp-police-topology-control\n\
       \  description Topology control\nclass-map match-any system-cpp-police-sw-forward\n\
       \  description Sw forwarding, L2 LVX data, LOGGING\nclass-map match-any system-cpp-default\n\
       \  description Inter FED, EWLC control, EWLC data\nclass-map match-any system-cpp-police-sys-data\n\
       \  description Learning cache ovfl, High Rate App, Exception, EGR Exception,\
-      \ NFL SAMPLED DATA, RPF Failed\nclass-map match-any system-cpp-police-punt-webauth\n\
+      \ NFL SAMPLED DATA, RPF Failed\nclass-map match-any DSCP-CS3-AF3\n match dscp\
+      \ cs3\n match dscp cs6\n match dscp af31  af32  af33\nclass-map match-any DSCP-AF2\n\
+      \ match dscp af21  af22  af23\nclass-map match-any system-cpp-police-punt-webauth\n\
       \  description Punt Webauth\nclass-map match-any system-cpp-police-l2lvx-control\n\
       \  description L2 LVX control packets\nclass-map match-any system-cpp-police-forus\n\
       \  description Forus Address resolution and Forus traffic\nclass-map match-any\
-      \ DSCP-EF\n match dscp ef\nclass-map match-any system-cpp-police-multicast-end-station\n\
-      \  description MCAST END STATION\nclass-map match-any system-cpp-police-multicast\n\
-      \  description Transit Traffic and MCAST Data\nclass-map match-any DSCP-CSx\n\
-      \ match dscp cs3\n match dscp cs6\nclass-map match-any system-cpp-police-l2-control\n\
-      \  description L2 control\nclass-map match-any system-cpp-police-dot1x-auth\n\
-      \  description DOT1X Auth\nclass-map match-any system-cpp-police-data\n  description\
-      \ ICMP redirect, ICMP_GEN and BROADCAST\nclass-map match-any system-cpp-police-stackwise-virt-control\n\
+      \ system-cpp-police-multicast-end-station\n  description MCAST END STATION\n\
+      class-map match-any DSCP-EF-AF4\n match dscp ef\n match dscp af41  af42  af43\n\
+      class-map match-any system-cpp-police-multicast\n  description Transit Traffic\
+      \ and MCAST Data\nclass-map match-any system-cpp-police-l2-control\n  description\
+      \ L2 control\nclass-map match-any system-cpp-police-dot1x-auth\n  description\
+      \ DOT1X Auth\nclass-map match-any system-cpp-police-data\n  description ICMP\
+      \ redirect, ICMP_GEN and BROADCAST\nclass-map match-any system-cpp-police-stackwise-virt-control\n\
       \  description Stackwise Virtual\nclass-map match-any LAN-MARK-EF\n match access-group\
       \ name MARK-DSCP-EF\nclass-map match-any non-client-nrt-class\nclass-map match-any\
-      \ LAN-MARK-AF1\n match access-group name MARK-DSCP-AF11\nclass-map match-any\
-      \ system-cpp-police-routing-control\n  description Routing control and Low Latency\n\
-      class-map match-any system-cpp-police-protocol-snooping\n  description Protocol\
-      \ snooping\nclass-map match-any LAN-MARK-AF3\nclass-map match-any DSCP-AF4x\n\
-      \ match dscp af41\n match dscp af42\n match dscp af43\nclass-map match-any LAN-MARK-AF2\n\
-      \ match access-group name MARK-DSCP-AF21\nclass-map match-any DSCP-AF2x\n match\
-      \ dscp af21\n match dscp af22\n match dscp af23\nclass-map match-any LAN-MARK-AF4\n\
-      \ match access-group name MARK-DSCP-AF41\nclass-map match-any DSCP-AF3x\n match\
-      \ dscp af31\n match dscp af32\n match dscp af33\nclass-map match-any DSCP-AF1x\n\
-      \ match dscp af11\n match dscp af12\n match dscp af13\nclass-map match-any system-cpp-police-dhcp-snooping\n\
+      \ LAN-MARK-AF1\n match access-group name MARK-DSCP-AF1x-AND-LOCAL\nclass-map\
+      \ match-any system-cpp-police-routing-control\n  description Routing control\
+      \ and Low Latency\nclass-map match-any system-cpp-police-protocol-snooping\n\
+      \  description Protocol snooping\nclass-map match-any LAN-MARK-AF2\n match access-group\
+      \ name MARK-DSCP-AF2x-AND-LOCAL\nclass-map match-any LAN-MARK-AF4\n match access-group\
+      \ name MARK-DSCP-AF4x\nclass-map match-any system-cpp-police-dhcp-snooping\n\
       \  description DHCP snooping\nclass-map match-any system-cpp-police-system-critical\n\
       \  description System Critical and Gold Pkt\nclass-map match-any LAN-MARK-CS3\n\
-      \ match access-group name MARK-DSCP-CS3\n!\npolicy-map LANQOS-OUT\n class DSCP-EF\n\
-      \ class DSCP-AF4x\n  bandwidth remaining percent 25\n  random-detect dscp-based\n\
-      \ class DSCP-AF3x\n  bandwidth remaining percent 5\n  random-detect dscp-based\n\
-      \ class DSCP-AF2x\n  bandwidth remaining percent 25\n  random-detect dscp-based\n\
-      \ class DSCP-AF1x\n  bandwidth remaining percent 15\n  random-detect dscp-based\n\
-      \ class class-default\n  bandwidth remaining percent 25\n  random-detect\npolicy-map\
-      \ system-cpp-policy\npolicy-map SETDSCP\n class LAN-MARK-EF\n  set dscp ef\n\
-      \ class LAN-MARK-AF4\n  set dscp af41\n class LAN-MARK-AF3\n  set dscp af31\n\
-      \ class LAN-MARK-AF2\n  set dscp af21\n class LAN-MARK-AF1\n  set dscp af11\n\
-      \ class LAN-MARK-CS3\n  set dscp cs3\n class class-default\n  set dscp default\n\
-      !\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface GigabitEthernet1\n\
+      \ match access-group name MARK-DSCP-CS3-CS6-AF3x\n!\npolicy-map LANQOS-OUT\n\
+      \ class DSCP-EF-AF4\n  priority level 1\n class DSCP-CS3-AF3\n  bandwidth remaining\
+      \ percent 5\n class DSCP-AF2\n  bandwidth remaining percent 25\n class class-default\n\
+      \  bandwidth remaining percent 45\npolicy-map system-cpp-policy\npolicy-map\
+      \ SETDSCP\n class LAN-MARK-EF\n  set dscp ef\n class LAN-MARK-AF4\n  set dscp\
+      \ af41\n class LAN-MARK-CS3\n  set dscp cs3\n class LAN-MARK-AF2\n  set dscp\
+      \ af21\n class LAN-MARK-AF1\n  set dscp af11\n class class-default\n  set dscp\
+      \ default\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface GigabitEthernet1\n\
       \ description 6th Floor LAN segment\n ip address 146.40.113.7 255.255.255.0\n\
       \ ip helper-address 146.40.224.19\n no ip redirects\n no ip proxy-arp\n negotiation\
-      \ auto\n no mop enabled\n no mop sysid\n no shutdown\n!\ninterface GigabitEthernet2\n\
-      \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n\
-      !\ninterface GigabitEthernet3\n no ip address\n shutdown\n negotiation auto\n\
-      \ no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n no ip address\n\
-      \ shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\nno ip forward-protocol\
-      \ nd\nno ip forward-protocol udp tftp\nno ip forward-protocol udp nameserver\n\
-      no ip forward-protocol udp domain\nno ip forward-protocol udp time\nno ip forward-protocol\
-      \ udp netbios-ns\nno ip forward-protocol udp netbios-dgm\nno ip forward-protocol\
-      \ udp tacacs\nip tcp path-mtu-discovery\nno ip http server\nip http authentication\
-      \ local\nip http secure-server\nip ftp source-interface GigabitEthernet1\nip\
-      \ tftp source-interface GigabitEthernet1\nip route 0.0.0.0 0.0.0.0 146.40.113.1\n\
-      ip tacacs source-interface GigabitEthernet1\n!\nip ssh version 2\n!\n!\nip access-list\
-      \ standard cvx-snmpv3-acl\n permit 146.22.71.201\n permit 146.42.69.246\n permit\
-      \ 146.35.147.59\n permit 146.40.3.35\n permit 146.40.2.8\n permit 146.40.2.11\n\
-      \ permit 146.40.2.12\n permit 146.40.2.13\n permit 146.40.2.7\n permit 146.40.3.120\n\
-      \ permit 146.42.255.132\n permit 139.65.136.0 0.0.3.255\n permit 139.65.140.0\
-      \ 0.0.3.255\n permit 139.65.0.0 0.0.255.255\n deny   any log\n!\nip access-list\
-      \ extended MARK-DSCP-AF11\n permit tcp any any eq smtp\n permit tcp any eq smtp\
-      \ any\n permit tcp any any eq 8080\n permit tcp any eq 8080 any\n permit tcp\
-      \ any any range 10565 10566\n permit tcp any range 10565 10566 any\n remark\
-      \ CISCO-JABBER-RTP\n permit udp any any range 16384 32767\nip access-list extended\
-      \ MARK-DSCP-AF21\n remark * * * Mark LAN received traffic to DSCP AF21 (transactional\
-      \ traffic) * * *\n remark * * * Well-known Ports * * *\n remark DNS\n permit\
-      \ udp any eq domain any\n permit udp any any eq domain\n remark BOOTP (DHCP)\n\
-      \ permit udp any eq bootpc any\n permit udp any eq bootps any\n permit udp any\
-      \ any eq bootpc\n permit udp any any eq bootps\n remark SSH & Telnet\n permit\
-      \ tcp any range 22 telnet any\n remark Kerberos\n permit udp any eq 88 any\n\
-      \ permit udp any any eq 88\n permit tcp any eq 88 any\n permit tcp any any eq\
-      \ 88\n remark Netbios name lookups\n permit udp any eq netbios-ns any\n permit\
-      \ udp any any eq netbios-ns\n remark Citrix & RDP\n permit tcp any eq 1494 any\n\
-      \ permit tcp any any eq 1494\n permit tcp any eq 3389 any\n permit tcp any any\
-      \ eq 3389\n remark TFTP\n permit udp any any eq tftp\n permit udp any eq tftp\
-      \ any\n remark RADIUS\n permit tcp any range 1812 1813 any\n permit tcp any\
-      \ any range 1812 1813\n remark SQL\n permit tcp any any range 1521 1522\n permit\
-      \ tcp any range 1521 1522 any\n permit tcp any any eq 1433\n permit tcp any\
-      \ eq 1433 any\n permit udp any any eq 1434\n permit udp any eq 1434 any\n remark\
-      \ * * * Chevron High Priority Apps * * *\n remark eprocurement.chevron.com\n\
-      \ permit ip any host 146.23.28.198\n permit ip host 146.23.28.198 any\n remark\
-      \ eProcurement Buyer (Houston)\n permit ip any host 144.5.224.25\n permit ip\
-      \ host 144.5.224.25 any\n remark * * * Local admins can mark custom traffic\
-      \ to DSCP AF21 (high traffic) * * *\n remark * * * by adding to this access-list.\
-      \ BUT BE CAREFUL!!! Do not delete these lines !!! * * *\n remark * * * Chevron\
-      \ Visitor Management * * *\n permit ip any host 146.40.4.91\n permit ip host\
-      \ 146.40.4.91 any\n permit udp any any range 16384 32767 precedence critical\n\
-      \ permit ip any 146.40.224.192 0.0.0.31\n permit ip 146.40.224.192 0.0.0.31\
+      \ auto\n no mop enabled\n no mop sysid\n no shutdown\n!\ninterface GigabitEthernet2\n no ip\
+      \ address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\n\
+      interface GigabitEthernet3\n no ip address\n shutdown\n negotiation auto\n no\
+      \ mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n no ip address\n\
+      \ shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\nip forward-protocol\
+      \ nd\nip tcp path-mtu-discovery\nno ip http server\nip http authentication local\n\
+      ip http secure-server\nip http client source-interface GigabitEthernet1\n\
+      ip route 0.0.0.0 0.0.0.0 146.40.113.1\nip tacacs source-interface GigabitEthernet1\n\
+      !\nip ssh version 2\n!\n!\nip access-list standard cvx-snmpv3-acl\n permit 146.22.71.201\n\
+      \ permit 146.42.69.246\n permit 146.35.147.59\n permit 146.40.3.35\n permit\
+      \ 146.40.2.8\n permit 146.40.2.11\n permit 146.40.2.12\n permit 146.40.2.13\n\
+      \ permit 146.40.2.7\n permit 146.40.3.120\n permit 146.42.255.132\n permit 146.40.3.119\n\
+      \ permit 139.65.136.0 0.0.3.255\n permit 139.65.0.0 0.0.255.255\n deny   any\
+      \ log\n!\nip access-list extended MARK-DSCP-AF1x-AND-LOCAL\n remark * * * Mark\
+      \ LAN received traffic to DSCP AF11 (bulk traffic) * * *\n permit ip any any\
+      \ dscp af11\n permit ip any any dscp af12\n permit ip any any dscp af13\n permit\
+      \ tcp any any eq smtp\n permit tcp any eq smtp any\n permit tcp any any eq 8080\n\
+      \ permit tcp any eq 8080 any\n permit tcp any any range 10565 10566\n permit\
+      \ tcp any range 10565 10566 any\n remark CISCO-JABBER-RTP\n permit udp any any\
+      \ range 16384 32767\n remark MICROSOFT-LYNC\n permit tcp any any range 50000\
+      \ 59999\nip access-list extended MARK-DSCP-AF2x-AND-LOCAL\n remark * * * Mark\
+      \ LAN received traffic to DSCP AF21 (transactional traffic) * * *\n remark *\
+      \ * * Well-known Ports * * *\n permit ip any any dscp af21\n permit ip any any\
+      \ dscp af22\n permit ip any any dscp af23\n remark DNS\n permit udp any eq domain\
+      \ any\n permit udp any any eq domain\n remark BOOTP (DHCP)\n permit udp any\
+      \ eq bootpc any\n permit udp any eq bootps any\n permit udp any any eq bootpc\n\
+      \ permit udp any any eq bootps\n remark SSH & Telnet\n permit tcp any range\
+      \ 22 telnet any\n remark Kerberos\n permit udp any eq 88 any\n permit udp any\
+      \ any eq 88\n permit tcp any eq 88 any\n permit tcp any any eq 88\n remark Netbios\
+      \ name lookups\n permit udp any eq netbios-ns any\n permit udp any any eq netbios-ns\n\
+      \ remark Citrix & RDP\n permit tcp any eq 1494 any\n permit tcp any any eq 1494\n\
+      \ permit tcp any eq 3389 any\n permit tcp any any eq 3389\n remark TFTP\n permit\
+      \ udp any any eq tftp\n permit udp any eq tftp any\n remark TACACS & RADIUS\n\
+      \ permit tcp any eq tacacs any\n permit tcp any any eq tacacs\n permit tcp any\
+      \ range 1812 1813 any\n permit tcp any any range 1812 1813\n remark SQL\n permit\
+      \ tcp any any range 1521 1522\n permit tcp any range 1521 1522 any\n permit\
+      \ tcp any any eq 1433\n permit tcp any eq 1433 any\n permit udp any any eq 1434\n\
+      \ permit udp any eq 1434 any\n remark * * * Chevron High Priority Apps * * *\n\
+      \ remark JDE Subnet in San Ramon\n permit ip any 146.27.68.0 0.0.0.255\n permit\
+      \ ip 146.27.68.0 0.0.0.255 any\n remark SAP Subnets in San Ramon\n permit tcp\
+      \ any 146.27.78.0 0.0.1.255 range 3200 3800\n permit tcp 146.27.78.0 0.0.1.255\
+      \ range 3200 3800 any\n remark eprocurement.chevron.com\n permit ip any host\
+      \ 146.23.4.51\n permit ip host 146.23.4.51 any\n remark sourcing.chevron.com\n\
+      \ permit ip any host 146.23.4.74\n permit ip host 146.23.4.74 any\n remark eProcurement\
+      \ Buyer (San Ramon)\n permit ip any host 146.27.126.40\n permit ip host 146.27.126.40\
+      \ any\n remark eProcurement Buyer (Houston)\n permit ip any host 144.5.224.25\n\
+      \ permit ip host 144.5.224.25 any\n remark * * * Local admins can mark custom\
+      \ traffic to DSCP AF21 (high traffic) * * *\n remark * * * by adding to this\
+      \ access-list. BUT BE CAREFUL!!! Do not delete these lines !!! * * *\n remark\
+      \ GARS Subnet in San Ramon\n permit ip any 146.27.166.0 0.0.0.255\n permit ip\
+      \ 146.27.166.0 0.0.0.255 any\n permit ip host 146.27.61.225 any\n permit ip\
+      \ any host 146.27.61.225\n remark * * * Chevron Visitor Management * * *\n permit\
+      \ ip any host 146.40.4.91\n permit udp any any range 16384 32767 precedence\
+      \ critical\n permit ip any 146.40.224.192 0.0.0.31\n permit ip 146.40.224.192\
+      \ 0.0.0.31 any\n permit ip host 146.40.4.91 any\n remark Added JDE Subnet in\
+      \ San Ramon\n permit ip any 146.27.61.0 0.0.0.255\n permit ip 146.27.61.0 0.0.0.255\
       \ any\n permit udp any range 50040 50059 52.112.0.0 0.3.255.255\n permit udp\
       \ any range 50040 50059 13.107.64.0 0.0.63.255\n permit udp any range 50040\
       \ 50059 52.120.0.0 0.3.255.255\n permit tcp any range 50040 50059 52.112.0.0\
@@ -709,89 +715,96 @@ nodes:
       \ 50059\n permit udp 52.120.0.0 0.3.255.255 any range 50040 50059\n permit tcp\
       \ 52.112.0.0 0.3.255.255 any range 50040 50059\n permit tcp 13.107.64.0 0.0.63.255\
       \ any range 50040 50059\n permit tcp 52.120.0.0 0.3.255.255 any range 50040\
-      \ 50059\nip access-list extended MARK-DSCP-AF31\n permit tcp any any range 2000\
-      \ 2002\n permit tcp any range 2000 2002 any\n permit tcp any any range 11000\
-      \ 11999\n permit tcp any range 11000 11999 any\nip access-list extended MARK-DSCP-AF41\n\
-      \ remark * * * Mark LAN received traffic to DSCP AF41 (video traffic) * * *\n\
-      \ remark * * * Match Tandberg MXP/C-Series Endpoint UDP ports for H.323\n permit\
-      \ udp any range 2326 2487 any range 2326 2487 dscp af41\n remark * * * Match\
-      \ Tandberg Codian MCU UDP ports\n remark Video Subnets in Houston for Codian\
+      \ 50059\nip access-list extended MARK-DSCP-AF4x\n remark * * * Mark LAN received\
+      \ traffic to DSCP AF41 (video traffic) * * *\n remark * * * Match Tandberg MXP/C-Series\
+      \ Endpoint UDP ports for H.323\n permit ip any any dscp af41\n permit ip any\
+      \ any dscp af42\n permit ip any any dscp af43\n permit udp any range 2326 2487\
+      \ any range 2326 2487 dscp af41\n remark * * * Match Tandberg Codian MCU UDP\
+      \ ports\n remark Video Subnets in San Ramon for Codian MCU UDP Ports\n permit\
+      \ udp any 146.27.172.0 0.0.0.31 range 49152 65535\n permit udp 146.27.172.0\
+      \ 0.0.0.31 range 49152 65535 any\n remark Video Subnets in Houston for Codian\
       \ MCU UDP Ports\n permit udp any 146.36.83.0 0.0.0.31 range 49152 65535\n permit\
       \ udp 146.36.83.0 0.0.0.31 range 49152 65535 any\n remark Video Subnets in LONPWG\
       \ for Codian MCU UDP Ports\n permit udp any 146.38.58.0 0.0.0.31 range 49152\
       \ 65535\n permit udp 146.38.58.0 0.0.0.31 range 49152 65535 any\n remark Video\
       \ Subnets in SGDC1 for Codian MCU UDP Ports\n permit udp any 146.40.10.128 0.0.0.31\
       \ range 49152 65535\n permit udp 146.40.10.128 0.0.0.31 range 49152 65535 any\n\
-      \ permit udp any range 50020 50039 52.112.0.0 0.3.255.255\n permit udp any range\
-      \ 50020 50039 13.107.64.0 0.0.63.255\n permit udp any range 50020 50039 52.120.0.0\
-      \ 0.3.255.255\n permit tcp any range 50020 50039 52.112.0.0 0.3.255.255\n permit\
-      \ tcp any range 50020 50039 13.107.64.0 0.0.63.255\n permit tcp any range 50020\
-      \ 50039 52.120.0.0 0.3.255.255\n permit udp 52.112.0.0 0.3.255.255 any range\
-      \ 50020 50039\n permit udp 13.107.64.0 0.0.63.255 any range 50020 50039\n permit\
-      \ udp 52.120.0.0 0.3.255.255 any range 50020 50039\n permit tcp 52.112.0.0 0.3.255.255\
-      \ any range 50020 50039\n permit tcp 13.107.64.0 0.0.63.255 any range 50020\
-      \ 50039\n permit tcp 52.120.0.0 0.3.255.255 any range 50020 50039\nip access-list\
-      \ extended MARK-DSCP-CS3\n remark tacacs\n permit tcp any eq tacacs any\n permit\
-      \ tcp any any eq tacacs\n remark H323-H225\n permit udp any any eq 1719\n permit\
-      \ udp any eq 1719 any\n permit tcp any any range 1718 1720\n permit tcp any\
-      \ range 1718 1720 any\n remark MGCP\n permit udp any any eq 2427\n permit udp\
-      \ any eq 2427 any\n permit tcp any any eq 2428\n permit tcp any eq 2428 any\n\
-      \ remark SIP\n permit tcp any any range 5060 5061\n permit udp any any range\
-      \ 5060 5061\n permit tcp any range 5060 5061 any\n permit udp any range 5060\
-      \ 5061 any\n remark H.245 for Cisco-Tandberg video\n permit tcp any range 5556\
-      \ 5574 any range 5555 5565\n permit tcp any range 5555 5565 any range 5556 5574\n\
-      \ remark BGP\n permit tcp any any eq bgp\n permit tcp any eq bgp any\nip access-list\
-      \ extended MARK-DSCP-EF\n remark * * * Mark LAN received traffic to DSCP EF\
-      \ (real-time) * * *\n permit udp any range 16384 32767 any dscp ef\n permit\
-      \ udp any any range 16384 32767 dscp ef\n permit udp any range 16384 32767 any\
-      \ precedence critical\n permit udp any any range 16384 32767 precedence critical\n\
-      \ permit udp any range 50000 50019 52.112.0.0 0.3.255.255\n permit udp any range\
-      \ 50000 50019 13.107.64.0 0.0.63.255\n permit udp any range 50000 50019 52.120.0.0\
-      \ 0.3.255.255\n permit tcp any range 50000 50019 52.112.0.0 0.3.255.255\n permit\
-      \ tcp any range 50000 50019 13.107.64.0 0.0.63.255\n permit tcp any range 50000\
-      \ 50019 52.120.0.0 0.3.255.255\n permit udp 52.112.0.0 0.3.255.255 any range\
-      \ 50000 50019\n permit udp 13.107.64.0 0.0.63.255 any range 50000 50019\n permit\
+      \ remark Video Subnets in San Ramon for MPS MCU UDP Ports\n permit udp any 146.27.70.0\
+      \ 0.0.0.63 range 2326 6951\n permit udp 146.27.70.0 0.0.0.63 range 2326 6951\
+      \ any\n permit udp any range 50020 50039 52.112.0.0 0.3.255.255\n permit udp\
+      \ any range 50020 50039 13.107.64.0 0.0.63.255\n permit udp any range 50020\
+      \ 50039 52.120.0.0 0.3.255.255\n permit tcp any range 50020 50039 52.112.0.0\
+      \ 0.3.255.255\n permit tcp any range 50020 50039 13.107.64.0 0.0.63.255\n permit\
+      \ tcp any range 50020 50039 52.120.0.0 0.3.255.255\n permit udp 52.112.0.0 0.3.255.255\
+      \ any range 50020 50039\n permit udp 13.107.64.0 0.0.63.255 any range 50020\
+      \ 50039\n permit udp 52.120.0.0 0.3.255.255 any range 50020 50039\n permit tcp\
+      \ 52.112.0.0 0.3.255.255 any range 50020 50039\n permit tcp 13.107.64.0 0.0.63.255\
+      \ any range 50020 50039\n permit tcp 52.120.0.0 0.3.255.255 any range 50020\
+      \ 50039\nip access-list extended MARK-DSCP-CS3-CS6-AF3x\n remark * * * Mark\
+      \ LAN received traffic to DSCP AF31 (call signalling) * * *\n permit ip any\
+      \ any dscp cs3\n permit ip any any dscp cs6\n permit ip any any dscp af31\n\
+      \ permit ip any any dscp af32\n permit ip any any dscp af33\n permit tcp any\
+      \ any range 2000 2002\n permit tcp any range 2000 2002 any\n permit tcp any\
+      \ any range 11000 11999\n permit tcp any range 11000 11999 any\n remark H323-H225\n\
+      \ permit udp any any eq 1719\n permit udp any eq 1719 any\n permit tcp any any\
+      \ range 1718 1720\n permit tcp any range 1718 1720 any\n remark MGCP\n permit\
+      \ udp any any eq 2427\n permit udp any eq 2427 any\n permit tcp any any eq 2428\n\
+      \ permit tcp any eq 2428 any\n remark SIP\n permit tcp any any range 5060 5061\n\
+      \ permit udp any any range 5060 5061\n permit tcp any range 5060 5061 any\n\
+      \ permit udp any range 5060 5061 any\n remark H.245 for Cisco-Tandberg video\n\
+      \ permit tcp any range 5556 5574 any range 5555 5565\n permit tcp any range\
+      \ 5555 5565 any range 5556 5574\n remark BGP\n permit tcp any any eq bgp\n permit\
+      \ tcp any eq bgp any\nip access-list extended MARK-DSCP-EF\n remark * * * Mark\
+      \ LAN received traffic to DSCP EF (real-time) * * *\n permit ip any any dscp\
+      \ ef\n permit udp any range 16384 32767 any dscp ef\n permit udp any any range\
+      \ 16384 32767 dscp ef\n permit udp any range 16384 32767 any precedence critical\n\
+      \ permit udp any any range 16384 32767 precedence critical\n permit udp any\
+      \ range 50000 50019 52.112.0.0 0.3.255.255\n permit udp any range 50000 50019\
+      \ 13.107.64.0 0.0.63.255\n permit udp any range 50000 50019 52.120.0.0 0.3.255.255\n\
+      \ permit tcp any range 50000 50019 52.112.0.0 0.3.255.255\n permit tcp any range\
+      \ 50000 50019 13.107.64.0 0.0.63.255\n permit tcp any range 50000 50019 52.120.0.0\
+      \ 0.3.255.255\n permit udp 52.112.0.0 0.3.255.255 any range 50000 50019\n permit\
       \ udp 52.120.0.0 0.3.255.255 any range 50000 50019\n permit tcp 52.112.0.0 0.3.255.255\
-      \ any range 50000 50019\n permit tcp 13.107.64.0 0.0.63.255 any range 50000\
-      \ 50019\n permit tcp 52.120.0.0 0.3.255.255 any range 50000 50019\nlogging source-interface\
-      \ GigabitEthernet1\nlogging host 146.22.197.37\nlogging host 146.40.10.9\nlogging\
-      \ host 146.40.2.7\nlogging host 139.65.142.24\nip access-list standard 20\n\
-      \ permit 10.0.0.0 0.63.255.255\n permit 10.128.0.0 0.7.255.255\n permit 10.254.0.0\
-      \ 0.0.255.255\n permit 146.22.0.0 0.1.255.255\n permit 146.24.0.0 0.7.255.255\n\
-      \ permit 146.32.0.0 0.7.255.255\n permit 146.40.0.0 0.3.255.255\n permit 146.44.0.0\
-      \ 0.1.255.255\n permit 146.46.0.0 0.0.255.255\n permit 136.171.0.0 0.0.255.255\n\
-      \ permit 139.65.140.0 0.0.3.255\n permit 139.65.136.0 0.0.3.255\n permit 139.65.0.0\
-      \ 0.0.255.255\n permit 134.248.0.0 0.0.255.255\n deny   any log\nip access-list\
-      \ standard 40\n permit 134.248.2.29\n permit 146.40.10.21\n deny   any log\n\
-      !\n!\nsnmp-server group CVX v3 priv\nsnmp-server group CVX2 v3 auth\nsnmp-server\
-      \ group CVX2 v3 priv\nsnmp-server group CVX-NMS v3 auth\nsnmp-server group CVX-NMS\
-      \ v3 priv read V3Read write V3Write notify V3Notify access cvx-snmpv3-acl\n\
-      snmp-server group cvx2021 v3 auth\nsnmp-server group cvx2021 v3 priv\nsnmp-server\
-      \ view V3Read iso included\nsnmp-server view V3Write iso included\nsnmp-server\
-      \ view V3Notify iso included\nsnmp-server trap link ietf\nsnmp-server trap-source\
-      \ GigabitEthernet1\nsnmp-server location PHHQ / 6750 Ayala Ave, 6Th Flr, Makati\
-      \ City, Metro Manila / Philippines / APAC /PH-NA-Utility-Campus-Metro/Criticality-Medium\n\
-      snmp-server contact network operations 65-6428 1050\nsnmp-server enable traps\
-      \ snmp linkdown linkup coldstart warmstart\nsnmp-server enable traps tty\nsnmp-server\
-      \ enable traps config\nsnmp-server enable traps entity\nsnmp-server enable traps\
-      \ ipmulticast\nsnmp-server host 139.65.136.41 informs version 3 auth CVX2\n\
-      snmp-server host 139.65.138.13 informs version 3 auth CVX2\nsnmp-server host\
-      \ 146.40.3.35 informs version 3 auth CVX2\nsnmp-server host 139.65.136.41 version\
-      \ 3 priv CVX  config\nsnmp-server host 139.65.138.13 version 3 priv CVX  config\n\
-      snmp-server host 139.65.142.12 version 3 priv CVX  config\nsnmp-server host\
-      \ 139.65.142.8 version 3 priv CVX  config\nsnmp-server host 146.40.3.35 version\
-      \ 3 priv CVX  config\nsnmp-server host 139.65.136.41 version 3 priv CVX2  config\n\
-      snmp-server host 139.65.138.13 version 3 priv CVX2  config\nsnmp-server host\
-      \ 139.65.142.12 version 3 priv CVX2  config\nsnmp-server host 139.65.142.8 version\
-      \ 3 priv CVX2  config\nsnmp-server host 146.40.3.35 version 3 priv CVX2  config\n\
-      snmp-server host 139.65.136.41 version 3 priv cvx2021  config\nsnmp-server host\
-      \ 139.65.138.13 version 3 priv cvx2021  config\nsnmp-server host 139.65.142.12\
-      \ version 3 auth cvx2021\nsnmp-server host 139.65.142.8 version 3 auth cvx2021\n\
-      snmp-server host 146.40.3.35 version 3 priv cvx2021  config\nsnmp ifmib ifalias\
-      \ long\nsnmp ifmib ifindex persist\n!\ntacacs-server host 139.65.139.143\ntacacs-server\
-      \ host 146.45.1.85\ntacacs-server host 139.65.137.160\ntacacs-server timeout\
-      \ 10\ntacacs-server directed-request\ntacacs-server key 7 06031D344F4B1A1606041B08\n\
-      !\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\nbanner login ^CCCC\n****************************************************\n\
+      \ any range 50000 50019\n permit tcp 52.120.0.0 0.3.255.255 any range 50000\
+      \ 50019\n permit tcp 13.107.64.0 0.0.63.255 any range 50000 50019\nlogging source-interface\
+      \ GigabitEthernet1\nlogging host 146.40.10.9\nlogging host 139.65.142.24\nip\
+      \ access-list standard 20\n permit 10.0.0.0 0.63.255.255\n permit 10.128.0.0\
+      \ 0.7.255.255\n permit 10.254.0.0 0.0.255.255\n permit 146.22.0.0 0.1.255.255\n\
+      \ permit 146.24.0.0 0.7.255.255\n permit 146.32.0.0 0.7.255.255\n permit 146.40.0.0\
+      \ 0.3.255.255\n permit 146.44.0.0 0.1.255.255\n permit 146.46.0.0 0.0.255.255\n\
+      \ permit 136.171.0.0 0.0.255.255\n permit 139.65.140.0 0.0.3.255\n permit 139.65.136.0\
+      \ 0.0.3.255\n permit 139.65.0.0 0.0.255.255\n permit 134.248.0.0 0.0.255.255\n\
+      \ deny   any log\nip access-list standard 40\n permit 134.248.2.29\n permit\
+      \ 146.40.10.21\n deny   any log\n!\n!\nsnmp-server group CVX v3 priv\nsnmp-server\
+      \ group CVX2 v3 auth\nsnmp-server group CVX2 v3 priv\nsnmp-server group CVX-NMS\
+      \ v3 auth\nsnmp-server group CVX-NMS v3 priv read V3Read write V3Write notify\
+      \ V3Notify access cvx-snmpv3-acl\nsnmp-server group cvx2021 v3 auth\nsnmp-server\
+      \ group cvx2021 v3 priv\nsnmp-server view V3Read iso included\nsnmp-server view\
+      \ V3Write iso included\nsnmp-server view V3Notify iso included\nsnmp-server\
+      \ trap link ietf\nsnmp-server trap-source GigabitEthernet1\nsnmp-server location\
+      \ PHHQ / 6750 Ayala Ave, 6Th Flr, Makati City, Metro Manila / Philippines /\
+      \ APAC /PH-NA-Utility-Campus-Metro/Criticality-Medium\nsnmp-server contact network\
+      \ operations 65-6428 1050\nsnmp-server enable traps snmp linkdown linkup coldstart\
+      \ warmstart\nsnmp-server enable traps tty\nsnmp-server enable traps config\n\
+      snmp-server enable traps entity\nsnmp-server enable traps ipmulticast\nsnmp-server\
+      \ host 139.65.136.41 informs version 3 auth CVX2\nsnmp-server host 139.65.138.13\
+      \ informs version 3 auth CVX2\nsnmp-server host 146.40.3.35 informs version\
+      \ 3 auth CVX2\nsnmp-server host 139.65.136.41 version 3 priv CVX  config\nsnmp-server\
+      \ host 139.65.138.13 version 3 priv CVX  config\nsnmp-server host 139.65.142.12\
+      \ version 3 priv CVX  config\nsnmp-server host 139.65.142.8 version 3 priv CVX\
+      \  config\nsnmp-server host 146.40.3.35 version 3 priv CVX  config\nsnmp-server\
+      \ host 139.65.136.41 version 3 priv CVX2  config\nsnmp-server host 139.65.138.13\
+      \ version 3 priv CVX2  config\nsnmp-server host 139.65.142.12 version 3 priv\
+      \ CVX2  config\nsnmp-server host 139.65.142.8 version 3 priv CVX2  config\n\
+      snmp-server host 146.40.3.35 version 3 priv CVX2  config\nsnmp-server host 139.65.136.41\
+      \ version 3 priv cvx2021  config\nsnmp-server host 139.65.138.13 version 3 priv\
+      \ cvx2021  config\nsnmp-server host 139.65.142.12 version 3 auth cvx2021\nsnmp-server\
+      \ host 139.65.142.8 version 3 auth cvx2021\nsnmp-server host 146.40.3.35 version\
+      \ 3 priv cvx2021  config\nsnmp ifmib ifalias long\nsnmp ifmib ifindex persist\n\
+      !\ntacacs-server host 139.65.139.143\ntacacs-server host 146.45.1.85\ntacacs-server\
+      \ host 139.65.137.160\ntacacs-server timeout 10\ntacacs-server directed-request\n\
+      tacacs-server key 7 06031D344F4B1A1606041B08\n!\n!\n!\n!\ncontrol-plane\n!\n\
+      !\n!\n!\n!\nbanner login ^CCCC\n****************************************************\n\
       WARNING TO UNAUTHORIZED USERS:\nThis system is for use by authorized users only.\n\
       Any individual using this system, by such use,\nacknowledges and consents to\
       \ the right of the\ncompany to monitor, access, use, and disclose any\ninformation\
@@ -806,8 +819,8 @@ nodes:
       \ 7 0123575C5E5B534160475C064525\n transport input ssh\nline vty 5 15\n session-timeout\
       \ 10\n access-class 20 in\n timeout login response 15\n password 7 0123575C5E5B534160475C064525\n\
       \ transport input ssh\n!\nntp source GigabitEthernet1\nntp access-group peer\
-      \ 40\nntp server 146.40.10.21 prefer\nntp server 134.248.2.29\nnetconf ssh\n\
-      !\n!\n!\n!\n!\nend"
+      \ 40\nntp server 146.40.10.21 prefer\nntp server 134.248.2.29\n!\n!\n!\n!\n\
+      !\nend"
     image_definition: csr1000v-161101b
     tags: []
     interfaces:
@@ -841,8 +854,8 @@ links:
     n1: n5
     i2: i2
     n2: n1
-  - id: l1
+  - id: l2
     i1: i1
-    n1: n2
+    n1: n6
     i2: i4
     n2: n1

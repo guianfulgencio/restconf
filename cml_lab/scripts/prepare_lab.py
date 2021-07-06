@@ -40,6 +40,11 @@ def main():
     topology_file = "../dev_topology/phhq_cml.yaml"
     lab_node_ips = ["146.36.4.80", "146.36.4.81"]
 
+    # Remove SSH keygen
+    for node_ip in lab_node_ips:
+        os.system(f'ssh-keygen -f ~/.ssh/known_hosts -R "{node_ip}"')
+        logger.info(f'✅ REMOVED SSH for {node_ip}')
+
     # Import lab
     lab_id = cml.import_lab(topology_file, 'PHHQ_Dev_Infra')
 
