@@ -1,0 +1,104 @@
+---
+aaa:
+  new-model:
+  - null
+
+  group:
+    server:
+      tacacsplus:
+      - name: ACS
+        server:
+          APAC:
+            name:
+            - name: NADC_ACS
+            - name: PERTH_ACS
+            - name: SIN_ACS
+
+          US:
+            name:
+            - name: NADC_ACS
+            - name: HOU_ACS
+
+          EMEA:
+            name:
+            - name: LON_ACS
+            - name: HOU_ACS
+
+  authentication:
+    enable:
+      default:
+        group: ACS
+        enable:
+        - null
+    login:
+    - name: default
+      a1:
+        group: ACS
+      a2:
+        local:
+        - null
+
+  authorization:
+    commands:
+    - level: 0
+      list-name: default
+      group: ACS
+      if-authenticated:
+      - null
+    - level: 1
+      list-name: default
+      group: ACS
+      if-authenticated:
+      - null
+    - level: 15
+      list-name: default
+      group: ACS
+      if-authenticated:
+      - null
+    config-commands:
+    - null
+    exec:
+    - name: default
+      a1:
+        group: ACS
+      a2:
+        if-authenticated:
+        - null
+
+  accounting:
+    commands:
+    - level: 0
+      list-name: default
+      action-type: start-stop
+      group: ACS
+    - level: 1
+      list-name: default
+      action-type: start-stop
+      group: ACS
+    - level: 15
+      list-name: default
+      action-type: start-stop
+      group: ACS
+    connection:
+    - name: default
+      start-stop:
+        group1:
+          group: ACS
+    exec:
+    - name: default
+      start-stop:
+        group1:
+          group: ACS
+    network:
+    - id: default
+      start-stop:
+        group: ACS
+    system:
+      default:
+        start-stop:
+          group: ACS
+    update:
+      newinfo: {}
+
+  session-id: common
+

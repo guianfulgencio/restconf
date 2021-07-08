@@ -1,0 +1,7 @@
+---
+username:
+- name: admin
+  secret:
+    encryption: '5'
+    secret: "$1$w9GP$vLlKiZX.s0SvYH//p0Zqi."
+
