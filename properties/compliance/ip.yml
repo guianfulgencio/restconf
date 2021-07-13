@@ -347,7 +347,7 @@ ip:
           - null
           src-eq: smtp
           dst-any:
-          - nul
+          - null
 
       - sequence: '30'
         ace-rule:

@@ -16,12 +16,12 @@ logging:
       - ipv4-host: 146.38.53.162
 
       US:
-      - ipv4-host: 146.36.114.214
       - ipv4-host: 134.248.81.53
+      - ipv4-host: 146.36.114.214
 
       EMEA:
-      - ipv4-host: 146.38.53.162
       - ipv4-host: 134.248.81.53
+      - ipv4-host: 146.38.53.162
 
   source-interface:
   - interface-name: mgmt_interface
