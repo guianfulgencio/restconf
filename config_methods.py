@@ -119,6 +119,7 @@ class Restconf():
                 result = f"✅ {self.hostname} - banner - CHANGED"
 
             logger.info(result)
+            self.ssh_device.close()
 
         # HTTP and Connection Error section
         except HTTPError as httperr:
@@ -283,11 +284,14 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - line - CONNECTION ERROR", self.hostname)
 
-    def logging(self, region, interface, number):
+    def logging(self, region, management_int):
         '''
         Check logging compliance script
         Configure device is non-compliant
+        management => dictionary keys are interface name and number
         '''
+        interface = management_int['name']
+        number = management_int['number']
         # open logging compliance config script
         config_file = f"{self.compliance}/logging.yml"
         with open(config_file, 'r') as yaml_file:
@@ -351,11 +355,14 @@ class Restconf():
             logger.error("❌ %s - logging - CONNECTION ERROR", self.hostname)
 
 
-    def ntp(self, region, interface, number):
+    def ntp(self, region, management_int):
         '''
         Check ntp compliance script
         Configure device is non-compliant
+        management_int => dictionary with keys interface name and number
         '''
+        interface = management_int['name']
+        number = management_int['number']
         # open ntp compliance config script
         config_file = f"{self.compliance}/ntp.yml"
         with open(config_file, 'r') as yaml_file:
@@ -619,12 +626,15 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - vtp - CONNECTION ERROR", self.hostname)
 
-    def domain(self, site_code, interface, number):
+    def domain(self, site_code, management_int):
         '''
         Check domain compliance script
         Configure device is non-compliant
+        management_int => dictionary key of interface name and number
         '''
             
+        interface = management_int['name']
+        number = management_int['number']
         # IOS-XE Restconf URL endpoint for domain configuration
         domain_url = f"{self.rest_endpoint}/ip/domain"
 
@@ -634,7 +644,7 @@ class Restconf():
                 "lookup-settings": {
                     "lookup": {
                         "source-interface": {
-                            interface: number
+                            interface: str(number)
                         }
                     }
                 },
@@ -718,142 +728,63 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - domain name-server - CONNECTION ERROR", self.hostname)
 
-    def forward_protocol(self):
-        '''
-        Check forward-protocol compliance script
-        Configure device is non-compliant
-        '''
-        # open forward-protocol compliance config script
-        config_file = f"{self.compliance}/ip.yml"
-        with open(config_file, 'r') as yaml_file:
-            config_script = yaml.safe_load(yaml_file)
-            fwd_protocol_script = config_script['ip']['forward-protocol']
-            
-        # IOS-XE Restconf URL endpoint for forward-protocol configuration
-        forward_protocol_url = f"{self.rest_endpoint}/ip/forward-protocol"
 
-        # Forward protocol payload
-        payload = {
-            "Cisco-IOS-XE-native:forward-protocol": fwd_protocol_script
-        }
-
-        try:
-            # Check device current name-server configuration
-            resp = requests.get(forward_protocol_url, headers=self.headers, auth=(self.auth), verify=False)
-            resp.raise_for_status()
-            if resp.status_code != 204:
-                content = resp.json()
-                result = f"✅ {self.hostname} - forward-protocol - OK"
-
-                # If device configuration doesnt comply with fwd-protocol compliance configuration,
-                # Push fwd-protocol compliance configuration into the device
-                if payload != content:
-                    conf = requests.put(forward_protocol_url , headers=self.headers, auth=self.auth,\
-                        data=json.dumps(payload), verify=False)
-                    conf.raise_for_status()
-                    result = f"✅ {self.hostname} - forward-protocol - CHANGED"
-            else:
-                conf = requests.put(forward_protocol_url, headers=self.headers, auth=self.auth,\
-                    data=json.dumps(payload), verify=False)
-                conf.raise_for_status()
-                result = f"✅ {self.hostname} - forward-protocol - CHANGED"
-            logger.info(result)
-
-        # HTTP and Connection Error section
-        except HTTPError as httperr:
-            logger.error("❌ %s - forward-protocol - HTTP ERROR - %s", self.hostname, httperr)
-        except conn_err:
-            logger.error("❌ %s - forward-protocol - CONNECTION ERROR", self.hostname)
-
-    def ftp(self, interface, number):
-        '''
-        Check ftp compliance script
-        Configure device if non-compliant
-        '''
-            
-        # IOS-XE Restconf URL endpoint for ftp configuration
-        ftp_url = f"{self.rest_endpoint}/ip/ftp"
-
-        # ftp payload
-        payload = {
-            "Cisco-IOS-XE-native:ftp": {
-                "source-interface": {
-                    interface: number
-                }
-            }
-        }
-        try:
-            # Check device current ftp configuration
-            resp = requests.get(ftp_url, headers=self.headers, auth=(self.auth), verify=False)
-            resp.raise_for_status()
-            if resp.status_code != 204:
-                content = resp.json()
-                result = f"✅ {self.hostname} - ftp - OK"
-
-                # If device configuration doesnt comply with ftp compliance configuration,
-                # Push ftp compliance configuration into the device
-                if payload != content:
-                    conf = requests.put(ftp_url , headers=self.headers, auth=self.auth,\
-                        data=json.dumps(payload), verify=False)
-                    conf.raise_for_status()
-                    result = f"✅ {self.hostname} - ftp - CHANGED"
-            else:
-                conf = requests.put(ftp_url, headers=self.headers, auth=self.auth,\
-                    data=json.dumps(payload), verify=False)
-                conf.raise_for_status()
-                result = f"✅ {self.hostname} - ftp - CHANGED"
-            logger.info(result)
-
-        # HTTP and Connection Error section
-        except HTTPError as httperr:
-            logger.error("❌ %s - ftp - HTTP ERROR - %s", self.hostname, httperr)
-        except conn_err:
-            logger.error("❌ %s - ftp - CONNECTION ERROR", self.hostname)
-
-    def tftp(self, interface, number):
+    def ftp_tftp_tacacs(self, management_int):
         '''
         Check tftp compliance script
         Configure device if non-compliant
         '''
             
-        # IOS-XE Restconf URL endpoint for tftp configuration
-        tftp_url = f"{self.rest_endpoint}/ip/tftp"
+        interface = management_int['name']
+        number = management_int['number']
+        for feature in ('ftp', 'tftp', 'tacacs'):
+            # IOS-XE Restconf URL endpoint 
+            endpoint_url = f"{self.rest_endpoint}/ip/{feature}"
 
-        # ftp payload
-        payload = {
-            "Cisco-IOS-XE-native:tftp": {
-                "source-interface": {
-                    interface: number
+            # payload
+            payload = {
+                f"Cisco-IOS-XE-native:{feature}": {
+                    "source-interface": {
+                        interface: str(number)
+                    }
                 }
             }
-        }
-        try:
-            # Check device current tftp configuration
-            resp = requests.get(tftp_url, headers=self.headers, auth=(self.auth), verify=False)
-            resp.raise_for_status()
-            if resp.status_code != 204:
-                content = resp.json()
-                result = f"✅ {self.hostname} - tftp - OK"
+            if feature == 'tacacs':
+                payload = {
+                    f"Cisco-IOS-XE-aaa:{feature}": {
+                        "source-interface": {
+                            interface: str(number)
+                        }
+                    }
+                }
 
-                # If device configuration doesnt comply with tftp compliance configuration,
-                # Push tftp compliance configuration into the device
-                if payload != content:
-                    conf = requests.put(tftp_url , headers=self.headers, auth=self.auth,\
+            try:
+                # Check device current tftp configuration
+                resp = requests.get(endpoint_url, headers=self.headers, auth=(self.auth), verify=False)
+                resp.raise_for_status()
+                if resp.status_code != 204:
+                    content = resp.json()
+                    result = f"✅ {self.hostname} - {feature} - OK"
+
+                    # If device configuration doesnt comply with tftp compliance configuration,
+                    # Push tftp compliance configuration into the device
+                    if payload != content:
+                        conf = requests.put(endpoint_url , headers=self.headers, auth=self.auth,\
+                            data=json.dumps(payload), verify=False)
+                        conf.raise_for_status()
+                        result = f"✅ {self.hostname} - {feature} - CHANGED"
+                else:
+                    conf = requests.put(endpoint_url, headers=self.headers, auth=self.auth,\
                         data=json.dumps(payload), verify=False)
                     conf.raise_for_status()
-                    result = f"✅ {self.hostname} - tftp - CHANGED"
-            else:
-                conf = requests.put(tftp_url, headers=self.headers, auth=self.auth,\
-                    data=json.dumps(payload), verify=False)
-                conf.raise_for_status()
-                result = f"✅ {self.hostname} - tftp - CHANGED"
-            logger.info(result)
+                    result = f"✅ {self.hostname} - {feature} - CHANGED"
+                logger.info(result)
 
-        # HTTP and Connection Error section
-        except HTTPError as httperr:
-            logger.error("❌ %s - tftp - HTTP ERROR - %s", self.hostname, httperr)
-        except conn_err:
-            logger.error("❌ %s - tftp - CONNECTION ERROR", self.hostname)
+            # HTTP and Connection Error section
+            except HTTPError as httperr:
+                logger.error("❌ %s - %s - HTTP ERROR - %s", self.hostname, feature, httperr)
+            except conn_err:
+                logger.error("❌ %s - %s - CONNECTION ERROR", self.hostname, feature)
 
     def ip_config(self):
         '''
@@ -866,14 +797,18 @@ class Restconf():
             config_script = yaml.safe_load(yaml_file)
             ip_script = config_script['ip']
             
-        for feature in ('source-route', 'ssh', 'tcp'):
+        for feature in ('source-route', 'ssh', 'tcp', 'forward-protocol', 'http'):
             # IOS-XE Restconf URL endpoint for miscellaneous ip configuration
             feature_url = f"{self.rest_endpoint}/ip/{feature}"
 
-            # Forward protocol payload
+            # payload
             payload = {
                 f"Cisco-IOS-XE-native:{feature}": ip_script[feature]
             }
+            if feature == 'http':
+                payload = {
+                    f"Cisco-IOS-XE-http:{feature}": ip_script[feature]
+                }
 
             try:
             # Check device current miscellaneous ip  configuration
@@ -961,26 +896,331 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - access-list - CONNECTION ERROR", self.hostname)
 
+
+    def host(self, name):
+        '''
+        Check hostname compliance script
+        Configure device if non-compliant
+        '''
+            
+        # IOS-XE Restconf URL endpoint for hostname configuration
+        hostname_url = f"{self.rest_endpoint}/hostname"
+        # payload
+        payload = {
+            "Cisco-IOS-XE-native:hostname": name
+        }
+        try:
+            # Check device current hostname configuration
+            resp = requests.get(hostname_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            if resp.status_code != 204:
+                content = resp.json()
+                result = f"✅ {self.hostname} - hostname - OK"
+
+                # If device configuration doesnt comply with hostname compliance configuration,
+                # Push hostname compliance configuration into the device
+                if payload != content:
+                    conf = requests.put(hostname_url , headers=self.headers, auth=self.auth,\
+                        data=json.dumps(payload), verify=False)
+                    conf.raise_for_status()
+                    result = f"✅ {self.hostname} - hostname - CHANGED"
+            else:
+                conf = requests.put(hostname_url, headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - hostname - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - hostname - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - hostname - CONNECTION ERROR", self.hostname)
+
+    def snmp_server(self, environment, location, management_int):
+        '''
+        Check snmp-server compliance script
+        Configure device if non-compliant
+        location => Dictionary value that contains the standard format of SNMP location
+        management_int => Dictionary value that contains the management interface name and number
+        '''
+            
+        # Management interface details
+        interface = management_int['name']
+        number = management_int['number']
+
+        # SNMP location details
+        facility = location['Facility']
+        address = location['Address']
+        country = location['Country']
+        region = location['Region']
+        iso = location['ISO-country-code']
+        support_org = location['Support-Org']
+        utility = location['Utility-name']
+        criticality = location['Criticality']
+        snmp_location = f"{facility} / {address} / {country} / {region} /{iso}-{support_org}-Utility-{utility}/{criticality}"
+        # Open snmp-server compliance script
+        config_file = f"{self.compliance}/snmp-server.yml"
+        with open(config_file, 'r') as yaml_file:
+            config_script = yaml.safe_load(yaml_file)
+            config_script['snmp-server']['location'] = snmp_location
+            if environment.upper() == 'DEV':
+                number = str(number)
+                config_script['snmp-server']['enable']['enable-choice']['traps'].pop('envmon')
+            server_host_list = config_script['snmp-server']['host'].pop(region.upper())
+            sorted_host_list = sorted(server_host_list,key=lambda i:i['ip-address'])
+
+        # IOS-XE Restconf URL endpoint for snmp-server configuration
+        snmp_server_url = f"{self.rest_endpoint}/snmp-server"
+
+        # payload
+        payload = {
+            "Cisco-IOS-XE-native:snmp-server": {
+                "Cisco-IOS-XE-snmp:contact": config_script['snmp-server']['contact'],
+                "Cisco-IOS-XE-snmp:enable": config_script['snmp-server']['enable'],
+                "Cisco-IOS-XE-snmp:group": config_script['snmp-server']['group'],
+                "Cisco-IOS-XE-snmp:host": sorted_host_list,
+                "Cisco-IOS-XE-snmp:location": snmp_location,
+                "Cisco-IOS-XE-snmp:trap": config_script['snmp-server']['trap'],
+                "Cisco-IOS-XE-snmp:trap-source": {
+                    interface: number
+                },
+                "Cisco-IOS-XE-snmp:view": config_script['snmp-server']['view']
+                # "Cisco-IOS-XE-snmp:user": config_script['snmp-server']['user']
+            }
+        }
+        try:
+            # Check device current snmp-server configuration
+            resp = requests.get(snmp_server_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            if resp.status_code != 204:
+                content = resp.json()
+                sorted_content_host = sorted(content['Cisco-IOS-XE-native:snmp-server']['Cisco-IOS-XE-snmp:host'],key=lambda i:i['ip-address'])
+                content['Cisco-IOS-XE-native:snmp-server']['Cisco-IOS-XE-snmp:host'] = sorted_content_host
+                result = f"✅ {self.hostname} - snmp-server - OK"
+
+                # If device configuration doesnt comply with snmp-server compliance configuration,
+                # Push snmp-server compliance configuration into the device
+                # import ipdb; ipdb.set_trace()
+                if payload != content:
+                    conf = requests.put(snmp_server_url , headers=self.headers, auth=self.auth,\
+                        data=json.dumps(payload), verify=False)
+                    conf.raise_for_status()
+                    result = f"✅ {self.hostname} - snmp-server - CHANGED"
+            else:
+                conf = requests.put(snmp_server_url, headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - snmp-server - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - snmp-server - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - snmp-server - CONNECTION ERROR", self.hostname)
+
+    def gateway(self, l3_route_method, device_property):
+        '''
+        Check routing compliance script
+        Configure device if non-compliant
+        l3_route_method => ip route or ip default-gateway method of routing
+        device_property => dictionary value which contains the value of the l3_route_method
+        '''
+            
+        # IOS-XE Restconf URL endpoint for routing configuration
+        route_url = f"{self.rest_endpoint}/ip/{l3_route_method}"
+        # payload
+        payload = {
+            f"Cisco-IOS-XE-native:{l3_route_method}": device_property[l3_route_method]
+        }
+        try:
+            # Check device current routing configuration
+            resp = requests.get(route_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            if resp.status_code != 204:
+                content = resp.json()
+                result = f"✅ {self.hostname} - {l3_route_method} - OK"
+
+                # If device configuration doesnt comply with hostname compliance configuration,
+                # Push hostname compliance configuration into the device
+                if payload != content:
+                    conf = requests.put(route_url , headers=self.headers, auth=self.auth,\
+                        data=json.dumps(payload), verify=False)
+                    conf.raise_for_status()
+                    result = f"✅ {self.hostname} - {l3_route_method} - CHANGED"
+            else:
+                conf = requests.put(route_url, headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - {l3_route_method} - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - %s - HTTP ERROR - %s", self.hostname, l3_route_method, httperr)
+        except conn_err:
+            logger.error("❌ %s - %s - CONNECTION ERROR", self.hostname, l3_route_method)
+
+    def vlan(self, environment, vlans=None):
+        '''
+        Check vla compliance script
+        Configure device if non-compliant
+        vlans => list of vlans
+        '''
+            
+        # DEV environment doesnt have VLAN feature
+        if environment.upper() == 'DEV':
+            return logger.info("❌ DEV environment doesnt have vlan feature")
+        # IOS-XE Restconf URL endpoint for vlan configuration
+        vlan_url = f"{self.rest_endpoint}/vlan"
+        # payload
+        payload = {
+            "Cisco-IOS-XE-native:vlan": {
+                "Cisco-IOS-XE-vlan:vlan-list": vlans
+            }
+        }
+        try:
+            # Check device current routing configuration
+            resp = requests.get(vlan_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            if resp.status_code != 204:
+                content = resp.json()
+                result = f"✅ {self.hostname} - vlan - OK"
+
+                # If device configuration doesnt comply with vlan compliance configuration,
+                # Push vlan compliance configuration into the device
+                if payload != content:
+                    conf = requests.put(vlan_url , headers=self.headers, auth=self.auth,\
+                        data=json.dumps(payload), verify=False)
+                    conf.raise_for_status()
+                    result = f"✅ {self.hostname} - vlan - CHANGED"
+            else:
+                conf = requests.put(vlan_url, headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - vlan - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - vlan - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - vlan - CONNECTION ERROR", self.hostname)
+
+    def aaa(self, region):
+        '''
+        Check aaa compliance script
+        Configure device is non-compliant
+        '''
+            
+        # open aaa compliance config script
+        config_file = f"{self.compliance}/aaa.yml"
+        with open(config_file, 'r') as yaml_file:
+            config_script = yaml.safe_load(yaml_file)
+            aaa_server = config_script['aaa']['group']['server']['tacacsplus'][0]['server-private'].pop(region.upper())
+            aaa_server = sorted(aaa_server,key=lambda i:i['name'])
+            config_script['aaa']['group']['server']['tacacsplus'][0]['server-private'] = aaa_server
+
+        # IOS-XE Restconf URL endpoint for aaa configuration
+        aaa_url = f"{self.rest_endpoint}/aaa"
+
+        # AAA payload
+        payload = {
+            "Cisco-IOS-XE-native:aaa": {
+                "Cisco-IOS-XE-aaa:new-model": config_script['aaa']['new-model'],
+                "Cisco-IOS-XE-aaa:group": {
+                    "server": {
+                        "tacacsplus": [
+                            {
+                                "name": "acs",
+                                "server-private": aaa_server,
+                                "timeout": 10
+                            }
+                        ]
+                    }
+                },
+                "Cisco-IOS-XE-aaa:authentication": config_script['aaa']['authentication'],
+                "Cisco-IOS-XE-aaa:authorization": config_script['aaa']['authorization'],
+                "Cisco-IOS-XE-aaa:accounting": config_script['aaa']['accounting'],
+                "Cisco-IOS-XE-aaa:session-id": config_script['aaa']['session-id']
+            }
+        }
+
+        # Check device aaa compliance configuration
+        try:
+            # Check device current aaa configuration
+            resp = requests.get(aaa_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            if resp.status_code != 204:
+                content = resp.json()
+                result = f"✅ {self.hostname} - aaa - OK"
+
+                # If device configuration doesnt comply with aaa compliance configuration,
+                # Push aaa compliance configuration into the device
+                # import ipdb; ipdb.set_trace()
+                if payload != content:
+                    conf = requests.put(aaa_url , headers=self.headers, auth=self.auth,\
+                        data=json.dumps(payload), verify=False)
+                    conf.raise_for_status()
+                    result = f"✅ {self.hostname} - aaa - CHANGED"
+            else:
+                conf = requests.put(aaa_url, headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - aaa - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - aaa - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - aaa - CONNECTION ERROR", self.hostname)
+
 if __name__ == "__main__":
-    device = Restconf("svc-spectrum", "@<TIIca5<ut')qP(fT=6-", "146.36.4.81", "PHHQ7FSL01-DEV")
-    # device.service()
-    # device.banner()
-    # device.enable()
-    # device.user()
-    # device.line('DEV')
-    # device.logging('EMEA', 'GigabitEthernet', '1')
-    # device.ntp('EMEA', 'GigabitEthernet', '1')
-    # device.spanning_tree()
-    # device.snmp()
-    # device.call_home()
-    # device.policy()
-    # device.vtp('PHHQ', 'PROD')
-    # device.domain('PHHQ', 'GigabitEthernet', '1')
-    # device.policy()
-    # device.name_server('US')
-    # device.forward_protocol()
-    # device.ftp('GigabitEthernet', '1')
-    # device.tftp('GigabitEthernet', '1')
-    # device.ip_config()
-    device.access_list('APAC')
+    from rich import print as rprint
+    input_env = 'DEV' 
+    inventory_file = f'inventory/phhq_{input_env.lower()}.json'
+    with open(inventory_file, 'r') as inv_file:
+        inventory_devices = json.load(inv_file)
+
+    for host, ip in inventory_devices.items():
+        rprint(f"\n[cyan]********** {host} **********[/cyan]")
+        device = Restconf("svc-spectrum", "@<TIIca5<ut')qP(fT=6-", ip, host)
+        device_filename = f"properties/{input_env.lower()}/{host}.yml"
+
+        with open(device_filename, 'r') as dev_prop_file:
+            device_properties = yaml.safe_load(dev_prop_file)
+            region = device_properties['location']['Region']
+            site_code = device_properties['location']['Facility']
+            mgmt_interface = device_properties['management']['interface']
+            l3_property = 'default-gateway'
+            if 'route' in device_properties.keys():
+                l3_property = 'route'
+            vlan_property = None
+            if 'vlan' in device_properties.keys():
+                vlan_property = device_properties['vlan']['vlan-list']
+
+        # device.service()
+        ### device.banner()
+        # device.enable()
+        # device.user()
+        # device.line(input_env.upper())
+        # device.logging(region, mgmt_interface)
+        # device.ntp(region, mgmt_interface)
+        # device.spanning_tree()
+        # device.snmp()
+        device.call_home()
+        # device.policy()
+        # device.vtp(site_code, input_env.upper())
+        # device.domain(site_code, mgmt_interface)
+        # device.name_server(region)
+        # device.ftp_tftp_tacacs(mgmt_interface)
+        # device.ip_config()
+        device.access_list(region)
+        # device.host(device_properties['hostname'])
+        # device.snmp_server(input_env.upper(),device_properties['location'], mgmt_interface)
+        # device.gateway(l3_property, device_properties)
+        # device.vlan(input_env.upper(), vlan_property)
+        # device.aaa(region)
 

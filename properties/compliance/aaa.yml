@@ -2,101 +2,137 @@
 aaa:
   new-model:
   - null
-
   group:
     server:
       tacacsplus:
-      - name: ACS
-        server:
+      - name: acs
+        server-private:
           APAC:
-            name:
-            - name: NADC_ACS
-            - name: PERTH_ACS
-            - name: SIN_ACS
+          - name: 139.65.137.60
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
 
-          US:
-            name:
-            - name: NADC_ACS
-            - name: HOU_ACS
+          - name: 139.65.139.143
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
+          - name: 146.45.1.85
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
 
           EMEA:
-            name:
-            - name: LON_ACS
-            - name: HOU_ACS
+          - name: 139.65.138.26
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
+          - name: 139.65.136.58
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
+          US:
+          - name: 139.65.137.60
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
+          - name: 139.65.136.58
+            key:
+              encryption: '7'
+              key: 06031D344F4B1A1606041B08
+
+        timeout: 10
+
 
   authentication:
     enable:
       default:
-        group: ACS
+        group: acs
         enable:
         - null
+
     login:
     - name: default
       a1:
-        group: ACS
+        group: acs
       a2:
         local:
         - null
+
 
   authorization:
     commands:
     - level: 0
       list-name: default
-      group: ACS
+      group: acs
       if-authenticated:
       - null
+
     - level: 1
       list-name: default
-      group: ACS
+      group: acs
       if-authenticated:
       - null
+
     - level: 15
       list-name: default
-      group: ACS
+      group: acs
       if-authenticated:
       - null
-    config-commands:
-    - null
+
     exec:
     - name: default
       a1:
-        group: ACS
+        group: acs
       a2:
         if-authenticated:
         - null
+
 
   accounting:
     commands:
     - level: 0
       list-name: default
       action-type: start-stop
-      group: ACS
+      group: acs
+
     - level: 1
       list-name: default
       action-type: start-stop
-      group: ACS
+      group: acs
+
     - level: 15
       list-name: default
       action-type: start-stop
-      group: ACS
+      group: acs
+
     connection:
     - name: default
       start-stop:
         group1:
-          group: ACS
+          group: acs
+
     exec:
     - name: default
       start-stop:
         group1:
-          group: ACS
+          group: tacacs+
+
     network:
     - id: default
       start-stop:
-        group: ACS
+        group: tacacs+
+
     system:
       default:
         start-stop:
-          group: ACS
+          group: acs
+
     update:
       newinfo: {}
 

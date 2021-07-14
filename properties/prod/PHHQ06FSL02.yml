@@ -93,7 +93,7 @@ interface:
             vlans: '506'
         native:
           vlan: 506
-    -snmp:snmp:
+    snmp:
       trap:
         link-status: false
 
@@ -108,7 +108,7 @@ interface:
             vlans: '506'
         native:
           vlan: 506
-    -snmp:snmp:
+    snmp:
       trap:
         link-status: false
 
@@ -123,7 +123,7 @@ interface:
             vlans: '506'
         native:
           vlan: 506
-    -snmp:snmp:
+    snmp:
       trap:
         link-status: false
 
@@ -138,7 +138,7 @@ interface:
             vlans: '506'
         native:
           vlan: 506
-    -snmp:snmp:
+    snmp:
       trap:
         link-status: false
 
