@@ -39,6 +39,9 @@ class Restconf():
         # Base RESTconf URL endpoint for IOS-XE configuration
         self.rest_endpoint = f"https://{ip_address}/restconf/data/Cisco-IOS-XE-native:native"
 
+        # RESTconf URL to save IOS-XE device configuration
+        self.save_url = f"https://{ip_address}/restconf/operations/cisco-ia:save-config/"
+
         # Napalm driver
         driver = get_network_driver('ios')
         self.ssh_device = driver(
@@ -1177,16 +1180,76 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - aaa - CONNECTION ERROR", self.hostname)
 
+    def save_config(self):
+        '''
+        Save device configuration
+        '''
+        try:
+            resp = requests.post(self.save_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            result = f"✅ {self.hostname} - save_config - OK"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - save_config - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - save_config - CONNECTION ERROR", self.hostname)
+
+    def interface(self, interface):
+        '''
+        Check interface compliance script
+        Configure device if non-compliant
+        '''
+            
+        # inteface payload
+        payload = {
+            "Cisco-IOS-XE-native:interface": interface
+        }
+        payload = json.dumps(payload)
+        payload = payload.replace("negotiation", "Cisco-IOS-XE-ethernet:negotiation")
+        payload = payload.replace("spanning-tree", "Cisco-IOS-XE-spanning-tree:spanning-tree")
+        payload = payload.replace("mode", "Cisco-IOS-XE-switch:mode")
+        payload = payload.replace("voice", "Cisco-IOS-XE-switch:voice")
+        payload = payload.replace('"trunk": {"', '"Cisco-IOS-XE-switch:trunk": {"')
+        payload = payload.replace("snmp", "Cisco-IOS-XE-snmp:snmp")
+        payload = payload.replace("service-policy", "Cisco-IOS-XE-policy:service-policy")
+        payload = payload.replace('"switchport": {"access"', '"switchport": {"Cisco-IOS-XE-switch:access"')
+        payload = json.loads(payload)
+
+        # IOS-XE Restconf URL endpoint for aaa configuration
+        interface_url = f"{self.rest_endpoint}/interface"
+        try:
+            resp = requests.get(interface_url, headers=self.headers, auth=(self.auth), verify=False)
+            resp.raise_for_status()
+            content = resp.json()
+            result = f"✅ {self.hostname} - interface - OK"
+            # import ipdb;ipdb.set_trace()
+            if content != payload:
+                conf = requests.put(interface_url , headers=self.headers, auth=self.auth,\
+                    data=json.dumps(payload), verify=False)
+                conf.raise_for_status()
+                result = f"✅ {self.hostname} - interface - CHANGED"
+            logger.info(result)
+
+        # HTTP and Connection Error section
+        except HTTPError as httperr:
+            logger.error("❌ %s - interface - HTTP ERROR - %s", self.hostname, httperr)
+        except conn_err:
+            logger.error("❌ %s - interface - CONNECTION ERROR", self.hostname)
+
 if __name__ == "__main__":
     from rich import print as rprint
     input_env = 'DEV' 
+    username = 'username'
+    password = 'password'
     inventory_file = f'inventory/phhq_{input_env.lower()}.json'
     with open(inventory_file, 'r') as inv_file:
         inventory_devices = json.load(inv_file)
 
     for host, ip in inventory_devices.items():
         rprint(f"\n[cyan]********** {host} **********[/cyan]")
-        device = Restconf("svc-spectrum", "@<TIIca5<ut')qP(fT=6-", ip, host)
+        device = Restconf(username, password, ip, host)
         device_filename = f"properties/{input_env.lower()}/{host}.yml"
 
         with open(device_filename, 'r') as dev_prop_file:
@@ -1202,7 +1265,7 @@ if __name__ == "__main__":
                 vlan_property = device_properties['vlan']['vlan-list']
 
         # device.service()
-        ### device.banner()
+        ### device.banner() this feature is buggy on Cisco-IOS version 16.9.5
         # device.enable()
         # device.user()
         # device.line(input_env.upper())
@@ -1210,17 +1273,19 @@ if __name__ == "__main__":
         # device.ntp(region, mgmt_interface)
         # device.spanning_tree()
         # device.snmp()
-        device.call_home()
+        # device.call_home()
         # device.policy()
         # device.vtp(site_code, input_env.upper())
         # device.domain(site_code, mgmt_interface)
         # device.name_server(region)
         # device.ftp_tftp_tacacs(mgmt_interface)
         # device.ip_config()
-        device.access_list(region)
+        # device.access_list(region)
         # device.host(device_properties['hostname'])
         # device.snmp_server(input_env.upper(),device_properties['location'], mgmt_interface)
         # device.gateway(l3_property, device_properties)
         # device.vlan(input_env.upper(), vlan_property)
         # device.aaa(region)
+        # device.save_config()
+        device.interface(device_properties['interface'])
 

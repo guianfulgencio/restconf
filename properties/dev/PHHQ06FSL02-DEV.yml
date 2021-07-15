@@ -32,6 +32,7 @@ interface:
       auto: true
 
   - name: '2'
+    description: Configured by Restconf
     shutdown:
     - null
     mop:
@@ -41,6 +42,7 @@ interface:
       auto: true
 
   - name: '3'
+    description: Configured by Restconf
     shutdown:
     - null
     mop:
@@ -50,6 +52,7 @@ interface:
       auto: true
 
   - name: '4'
+    description: Configured by Restconf
     shutdown:
     - null
     mop:

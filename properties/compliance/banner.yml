@@ -1,4 +1,5 @@
 ---
+# This feature is buggy on prod but not in dev
 banner:
   login:
     banner: |

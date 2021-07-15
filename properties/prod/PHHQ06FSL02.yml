@@ -308,7 +308,7 @@ interface:
       voice:
         vlan:
           vlan: 48
-    -policy:service-policy:
+    service-policy:
       input: SETDSCP
     spanning-tree:
       portfast: {}
@@ -590,7 +590,7 @@ interface:
     switchport:
       mode:
         trunk: {}
-    -policy:service-policy:
+    service-policy:
       output: LANQOS-OUT
 
   - name: 1/0/5
@@ -679,7 +679,7 @@ interface:
       - address: 146.40.224.19
       proxy-arp: false
       redirects: false
-      load-interval: 30
+    load-interval: 30
 
 
 default-gateway: 146.40.113.1
