@@ -57,7 +57,7 @@
     pool: ITC-ITSD-NA-Ansible-UK
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
     jobs:
-    - job: "Network_as_code_using_restconf_dev"
+    - job: "Network_as_code_using_restconf_prod"
       steps:
       - checkout: self
         clean: True

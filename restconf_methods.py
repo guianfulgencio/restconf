@@ -784,8 +784,8 @@ class Restconf():
             # HTTP and Connection Error section
             except HTTPError as httperr:
                 logger.error("❌ %s - %s - HTTP ERROR - %s", self.hostname, feature, httperr)
-            except conn_err:
-                logger.error("❌ %s - %s - CONNECTION ERROR", self.hostname, feature)
+            except conn_err as err:
+                logger.error("❌ %s - %s - CONNECTION ERROR - %s", self.hostname, feature, err)
 
     def ip_config(self):
         '''
