@@ -5,6 +5,7 @@ import json
 import logging
 import yaml
 import requests
+import time
 from requests.exceptions import HTTPError
 from requests.exceptions import ConnectionError as conn_err
 import urllib3
@@ -780,6 +781,7 @@ class Restconf():
                     conf.raise_for_status()
                     result = f"✅ {self.hostname} - {feature} - CHANGED"
                 logger.info(result)
+                time.sleep(10)
 
             # HTTP and Connection Error section
             except HTTPError as httperr:

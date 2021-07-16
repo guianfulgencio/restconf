@@ -69,6 +69,9 @@ def main():
         sys.exit(1)
     # Final info
     logger.info('✅ ALL NODES ARE UP')
+    logger.info('Wait for 1 minute to complete device initialization')
+    time.sleep(60)
+    logger.info('✅ Initialization Complete')
 
 if __name__ == "__main__":
     main()

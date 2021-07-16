@@ -48,7 +48,7 @@ class CML():
             response.raise_for_status()
             token = response.json()
             self.headers['Authorization'] = f"Bearer {token}"
-            logger.info("✅ Token successfully retrieved - %s", token)
+            logger.info("✅ Token successfully retrieved")
 
         except HTTPError as httperr:
             logger.error("❌ Unable to get token - %s", httperr)

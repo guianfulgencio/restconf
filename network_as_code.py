@@ -12,6 +12,7 @@ password => tacacs password
 import json
 import argparse
 import yaml
+import time
 from rich import print as rprint
 from restconf_methods import Restconf
 
@@ -85,6 +86,7 @@ def main():
         device.access_list(region)
         device.logging(region, mgmt_interface)
         device.ntp(region, mgmt_interface)
+        time.sleep(20)
         device.line(environment.upper())
         device.policy()
 
