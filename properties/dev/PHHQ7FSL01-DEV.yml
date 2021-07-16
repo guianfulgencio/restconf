@@ -32,8 +32,9 @@ interface:
       auto: true
 
   - name: '2'
-    shutdown:
-    - null
+    description: Configured by ADO pipeline
+    # shutdown:
+    # - null
     mop:
       enabled: false
       sysid: false
@@ -41,8 +42,9 @@ interface:
       auto: true
 
   - name: '3'
-    shutdown:
-    - null
+    description: Configured by ADO pipeline
+    # shutdown:
+    # - null
     mop:
       enabled: false
       sysid: false
@@ -50,8 +52,9 @@ interface:
       auto: true
 
   - name: '4'
-    shutdown:
-    - null
+    description: Configured by ADO pipeline
+    # shutdown:
+    # - null
     mop:
       enabled: false
       sysid: false
