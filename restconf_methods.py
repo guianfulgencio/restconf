@@ -9,15 +9,13 @@ from requests.exceptions import HTTPError
 from requests.exceptions import ConnectionError as conn_err
 import urllib3
 from napalm import get_network_driver
-from rich.logging import RichHandler
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Create logging
-LOG_FORMAT = "%(asctime)s %(message)s"
-logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, handlers=[RichHandler(),\
-                    logging.FileHandler("script.log")])
+LOG_FORMAT = "[%(asctime)s] %(message)s"
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 logger = logging.getLogger()
 
 

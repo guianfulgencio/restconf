@@ -8,13 +8,12 @@ import requests
 import urllib3
 from requests.exceptions import HTTPError
 from dotenv import load_dotenv
-from rich.logging import RichHandler
+# from rich.logging import RichHandler
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # Create logging
-LOG_FORMAT = "%(asctime)s %(message)s"
-logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, handlers=[RichHandler(),\
-                    logging.FileHandler("script.log")])
+LOG_FORMAT = "[%(asctime)s] %(message)s"
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 logger = logging.getLogger()
 
 class CML():
