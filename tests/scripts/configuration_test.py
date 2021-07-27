@@ -6,6 +6,7 @@ import logging
 from unicon import Connection
 from unicon.core.errors import ConnectionError
 from pyats import aetest
+from rest_test_methods import Restconf_test
 
 logger = logging.getLogger(__name__)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -120,6 +121,361 @@ class HTTPS_test(aetest.Testcase):
                     except Exception as err:
                         substep2.failed(err)
 
+class Service_test(aetest.Testcase):
+    uid = 'Service configuration Test'
+
+    @aetest.test
+    def service_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.service()
+                if result:
+                    step.passed("✅ Service configuration is compliant")
+                step.failed("❌ Service configuration not compliant.")
+
+class Hostname_test(aetest.Testcase):
+    uid = 'Hostname configuration Test'
+
+    @aetest.test
+    def hostname_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.device_name()
+                if result:
+                    step.passed("✅ Hostname configuration is compliant")
+                step.failed("❌ Hostname configuration not compliant.")
+
+class Username_test(aetest.Testcase):
+    uid = 'Username configuration Test'
+
+    @aetest.test
+    def username_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.user_name()
+                if result:
+                    step.passed("✅ Username configuration is compliant")
+                step.failed("❌ Username configuration not compliant.")
+
+class Enable_test(aetest.Testcase):
+    uid = 'Enable configuration Test'
+
+    @aetest.test
+    def enable_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.enable()
+                if result:
+                    step.passed("✅ Enable configuration is compliant")
+                step.failed("❌ Enable configuration not compliant.")
+
+class Call_home_test(aetest.Testcase):
+    uid = 'Call-Home configuration Test'
+
+    @aetest.test
+    def call_home_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.call_home()
+                if result:
+                    step.passed("✅ Call-home configuration is compliant")
+                step.failed("❌ Call-home configuration not compliant.")
+
+class Domain_test(aetest.Testcase):
+    uid = 'IP Domain configuration Test'
+
+    @aetest.test
+    def ip_domain_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.domain()
+                if result:
+                    step.passed("✅ IP domain configuration is compliant")
+                step.failed("❌ IP domain configuration not compliant.")
+
+class Name_server_test(aetest.Testcase):
+    uid = 'IP Domain Name server configuration Test'
+
+    @aetest.test
+    def ip_domain_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.domain()
+                if result:
+                    step.passed("✅ IP domain name-server configuration is compliant")
+                step.failed("❌ IP domain name-server configuration not compliant.")
+
+class Ftp_server_test(aetest.Testcase):
+    uid = 'FTP server configuration Test'
+
+    @aetest.test
+    def ftp_server_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.ftp()
+                if result:
+                    step.passed("✅ ftp server configuration is compliant")
+                step.failed("❌ ftp server configuration not compliant.")
+
+class Tftp_server_test(aetest.Testcase):
+    uid = 'TFTP server configuration Test'
+
+    @aetest.test
+    def tftp_server_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.tftp()
+                if result:
+                    step.passed("✅ tftp server configuration is compliant")
+                step.failed("❌ tftp server configuration not compliant.")
+
+class Tacacs_server_test(aetest.Testcase):
+    uid = 'Tacacs server configuration Test'
+
+    @aetest.test
+    def tacacs_server_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.tacacs()
+                if result:
+                    step.passed("✅ tacacs server configuration is compliant")
+                step.failed("❌ tacacs server configuration not compliant.")
+
+class Source_route_test(aetest.Testcase):
+    uid = 'IP Source-route configuration Test'
+
+    @aetest.test
+    def source_route_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.source_route()
+                if result:
+                    step.passed("✅ IP source-route configuration is compliant")
+                step.failed("❌ IP source-route configuration not compliant.")
+
+class Ssh_test(aetest.Testcase):
+    uid = 'IP SSH configuration Test'
+
+    @aetest.test
+    def ssh_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.ssh()
+                if result:
+                    step.passed("✅ IP ssh configuration is compliant")
+                step.failed("❌ IP ssh configuration not compliant.")
+
+class Tcp_test(aetest.Testcase):
+    uid = 'IP Tcp configuration Test'
+
+    @aetest.test
+    def tcp_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.tcp()
+                if result:
+                    step.passed("✅ IP tcp configuration is compliant")
+                step.failed("❌ IP tcp configuration not compliant.")
+
+class Forward_protocol_test(aetest.Testcase):
+    uid = 'IP Forward-protocol configuration Test'
+
+    @aetest.test
+    def forward_protocol_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.forward_protocol()
+                if result:
+                    step.passed("✅ IP forward-protocol configuration is compliant")
+                step.failed("❌ IP forward-protocol configuration not compliant.")
+
+class Ip_HTTP_test(aetest.Testcase):
+    uid = 'IP HTTP configuration Test'
+
+    @aetest.test
+    def ip_http_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.http()
+                if result:
+                    step.passed("✅ IP HTTP configuration is compliant")
+                step.failed("❌ IP HTTP configuration not compliant.")
+
+class VTP_test(aetest.Testcase):
+    uid = 'VTP configuration Test'
+
+    @aetest.test
+    def vtp_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                if environment.upper() == 'DEV':
+                    step.skipped('DEV environment doesnt have VTP feature')
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.vtp()
+                if result:
+                    step.passed("✅ VTP configuration is compliant")
+                step.failed("❌ VTP configuration not compliant.")
+
+class Vlan_test(aetest.Testcase):
+    uid = 'Vlan configuration Test'
+
+    @aetest.test
+    def vlan_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                if environment.upper() == 'DEV':
+                    step.skipped('DEV environment doesnt have Vlan feature')
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.vlan()
+                if result:
+                    step.passed("✅ Vlan configuration is compliant")
+                step.failed("❌ Vlan configuration not compliant.")
+
+class Spanning_tree_test(aetest.Testcase):
+    uid = 'Spanning-tree configuration Test'
+
+    @aetest.test
+    def stp_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.spanning_tree()
+                if result:
+                    step.passed("✅ Spanning-tree configuration is compliant")
+                step.failed("❌ Spanning-tree configuration not compliant.")
+
+class Access_list_test(aetest.Testcase):
+    uid = 'Access-List configuration Test'
+
+    @aetest.test
+    def acl_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.access_list()
+                if result:
+                    step.passed("✅ Access-list configuration is compliant")
+                step.failed("❌ Access-list configuration not compliant.")
+
+class Logging_test(aetest.Testcase):
+    uid = 'Logging configuration Test'
+
+    @aetest.test
+    def logging_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.logging()
+                if result:
+                    step.passed("✅ Logging configuration is compliant")
+                step.failed("❌ Logging configuration not compliant.")
+
+class Ntp_test(aetest.Testcase):
+    uid = 'NTP configuration Test'
+
+    @aetest.test
+    def ntp_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.ntp()
+                if result:
+                    step.passed("✅ Ntp configuration is compliant")
+                step.failed("❌ Ntp configuration not compliant.")
+
+class Line_test(aetest.Testcase):
+    uid = 'Line configuration Test'
+
+    @aetest.test
+    def line_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.line()
+                if result:
+                    step.passed("✅ Line configuration is compliant")
+                step.failed("❌ Line configuration not compliant.")
+
+class Policy_test(aetest.Testcase):
+    uid = 'Policy-map configuration Test'
+
+    @aetest.test
+    def policy_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.policy()
+                if result:
+                    step.passed("✅ Policy-map configuration is compliant")
+                step.failed("❌ Policy-map configuration not compliant.")
+
+class Snmp_test(aetest.Testcase):
+    uid = 'SNMP configuration Test'
+
+    @aetest.test
+    def snmp_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.snmp()
+                if result:
+                    step.passed("✅ SNMP configuration is compliant")
+                step.failed("❌ SNMP configuration not compliant.")
+
+class Snmp_server_test(aetest.Testcase):
+    uid = 'SNMP-server configuration Test'
+
+    @aetest.test
+    def snmp_server_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.snmp_server()
+                if result:
+                    step.passed("✅ SNMP-server configuration is compliant")
+                step.failed("❌ SNMP-server configuration not compliant.")
+
+class AAA_test(aetest.Testcase):
+    uid = 'AAA configuration Test'
+
+    @aetest.test
+    def aaa_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.aaa()
+                if result:
+                    step.passed("✅ AAA configuration is compliant")
+                step.failed("❌ AAA configuration not compliant.")
+
+class Route_test(aetest.Testcase):
+    uid = 'Routing configuration Test'
+
+    @aetest.test
+    def route_check(self, steps, devices, username, password, environment):
+        for device, ip in devices.items():
+            with steps.start(f'{device}', continue_=True) as step:
+                node = Restconf_test(ip, device, username, password, environment)
+                result = node.route()
+                if result:
+                    step.passed("✅ Routing configuration is compliant")
+                step.failed("❌ Routing configuration not compliant.")
+
 if __name__ == '__main__':
     import os
     import sys
@@ -148,4 +504,5 @@ if __name__ == '__main__':
     # set logger level
     logger.setLevel(logging.INFO)
 
-    aetest.main(devices=inventory_dict, username=args.username, password=args.password)
+    aetest.main(devices=inventory_dict, username=args.username, password=args.password,\
+                environment=args.environment)
