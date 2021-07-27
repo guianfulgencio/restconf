@@ -75,7 +75,7 @@ def main():
         device.domain(site_code, mgmt_interface)
         device.name_server(region)
         device.ip_config()
-        device.ftp_tftp_tacacs(mgmt_interface)
+        device.ftp_tftp_tacacs(mgmt_interface, environment.upper())
 
         # Layer 2 configuration
         device.vtp(site_code, environment.upper())
