@@ -95,46 +95,83 @@ aaa:
 
 
   accounting:
-    commands:
-    - level: 0
-      list-name: default
-      action-type: start-stop
-      group: acs
+    DEV:
+      commands:
+      - level: 0
+        list-name: default
+        action-type: start-stop
+        group: acs
 
-    - level: 1
-      list-name: default
-      action-type: start-stop
-      group: acs
+      - level: 1
+        list-name: default
+        action-type: start-stop
+        group: acs
 
-    - level: 15
-      list-name: default
-      action-type: start-stop
-      group: acs
+      - level: 15
+        list-name: default
+        action-type: start-stop
+        group: acs
 
-    connection:
-    - name: default
-      start-stop:
-        group1:
-          group: acs
+      connection:
+      - name: default
+        start-stop:
+          group1:
+            group: acs
 
-    exec:
-    - name: default
-      start-stop:
-        group1:
+      exec:
+      - name: default
+        start-stop:
+          group1:
+            group: tacacs+
+
+      network:
+      - id: default
+        start-stop:
           group: tacacs+
 
-    network:
-    - id: default
-      start-stop:
-        group: tacacs+
+      system:
+        default:
+          start-stop:
+            group: acs
 
-    system:
-      default:
+      update:
+        newinfo: {}
+
+    PROD:
+      commands:
+      - level: 0
+        list-name: default
+        action-type: start-stop
+        group: acs
+
+      - level: 1
+        list-name: default
+        action-type: start-stop
+        group: acs
+
+      - level: 15
+        list-name: default
+        action-type: start-stop
+        group: acs
+      connection:
+      - name: default
         start-stop:
           group: acs
 
-    update:
-      newinfo: {}
+      exec:
+      - name: default
+        start-stop:
+          group: tacacs+
+
+      network:
+      - id: default
+        start-stop:
+          group: tacacs+
+
+      system:
+        default:
+          start-stop:
+            group: acs
 
   session-id: common
 
