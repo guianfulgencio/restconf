@@ -42,6 +42,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/10
     switchport:
@@ -55,6 +57,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/11
     switchport:
@@ -68,6 +72,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/12
     switchport:
@@ -81,6 +87,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/13
     description: PHHQ6FWA02
@@ -96,6 +104,8 @@ interface:
     snmp:
       trap:
         link-status: false
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/14
     description: PHHQ6FWA01
@@ -111,6 +121,8 @@ interface:
     snmp:
       trap:
         link-status: false
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/15
     description: PHHQ6FWA04
@@ -126,6 +138,8 @@ interface:
     snmp:
       trap:
         link-status: false
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/16
     description: PHHQ6FWA06
@@ -141,6 +155,8 @@ interface:
     snmp:
       trap:
         link-status: false
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/17
     switchport:
@@ -154,6 +170,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/18
     switchport:
@@ -167,6 +185,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/19
     switchport:
@@ -180,6 +200,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/2
     switchport:
@@ -193,6 +215,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/20
     switchport:
@@ -206,6 +230,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/21
     switchport:
@@ -219,6 +245,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/22
     switchport:
@@ -232,6 +260,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/23
     switchport:
@@ -245,6 +275,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/24
     switchport:
@@ -258,6 +290,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/25
     switchport:
@@ -271,6 +305,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/26
     switchport:
@@ -284,6 +320,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/27
     switchport:
@@ -297,6 +335,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/28
     switchport:
@@ -312,6 +352,8 @@ interface:
       input: SETDSCP
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/29
     switchport:
@@ -325,6 +367,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/3
     switchport:
@@ -338,6 +382,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/30
     switchport:
@@ -351,6 +397,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/31
     switchport:
@@ -364,6 +412,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/32
     switchport:
@@ -377,6 +427,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/33
     switchport:
@@ -390,6 +442,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/34
     switchport:
@@ -403,6 +457,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/35
     switchport:
@@ -416,6 +472,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/36
     switchport:
@@ -429,6 +487,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/37
     switchport:
@@ -442,6 +502,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/38
     switchport:
@@ -455,6 +517,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/39
     switchport:
@@ -468,6 +532,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/4
     switchport:
@@ -481,6 +547,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/40
     switchport:
@@ -494,6 +562,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/41
     switchport:
@@ -507,6 +577,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/42
     switchport:
@@ -520,6 +592,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/43
     switchport:
@@ -533,6 +607,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/44
     switchport:
@@ -546,6 +622,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/45
     switchport:
@@ -559,6 +637,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/46
     switchport:
@@ -572,6 +652,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/47
     switchport:
@@ -585,6 +667,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/48
     switchport:
@@ -605,6 +689,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/6
     switchport:
@@ -618,6 +704,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/7
     switchport:
@@ -631,6 +719,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/8
     switchport:
@@ -644,6 +734,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/0/9
     switchport:
@@ -657,6 +749,8 @@ interface:
           vlan: 48
     spanning-tree:
       portfast: {}
+    service-policy:
+      input: SETDSCP
 
   - name: 1/1/1
   - name: 1/1/2
