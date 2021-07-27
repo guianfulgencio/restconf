@@ -7,10 +7,10 @@
   - group: restconf
 
   trigger:
-    none
-    # branches:
-    #   include: 
-    #   - master
+    # none
+    branches:
+      include: 
+      - master
 
   stages:
   - stage: "DEV_Restconf"
