@@ -731,7 +731,7 @@ class Restconf():
             logger.error("❌ %s - domain name-server - CONNECTION ERROR", self.hostname)
 
 
-    def ftp_tftp_tacacs(self, management_int):
+    def ftp_tftp_tacacs(self, management_int, environment):
         '''
         Check tftp compliance script
         Configure device if non-compliant
@@ -739,6 +739,8 @@ class Restconf():
             
         interface = management_int['name']
         number = management_int['number']
+        if environment.upper() == 'DEV':
+            number = str(number)
         for feature in ('ftp', 'tftp', 'tacacs'):
             # IOS-XE Restconf URL endpoint 
             endpoint_url = f"{self.rest_endpoint}/ip/{feature}"
@@ -747,7 +749,7 @@ class Restconf():
             payload = {
                 f"Cisco-IOS-XE-native:{feature}": {
                     "source-interface": {
-                        interface: str(number)
+                        interface: number
                     }
                 }
             }
@@ -755,7 +757,7 @@ class Restconf():
                 payload = {
                     f"Cisco-IOS-XE-aaa:{feature}": {
                         "source-interface": {
-                            interface: str(number)
+                            interface: number
                         }
                     }
                 }
