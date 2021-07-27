@@ -1111,7 +1111,7 @@ class Restconf():
         except conn_err:
             logger.error("❌ %s - vlan - CONNECTION ERROR", self.hostname)
 
-    def aaa(self, region):
+    def aaa(self, region, environment):
         '''
         Check aaa compliance script
         Configure device is non-compliant
@@ -1145,7 +1145,7 @@ class Restconf():
                 },
                 "Cisco-IOS-XE-aaa:authentication": config_script['aaa']['authentication'],
                 "Cisco-IOS-XE-aaa:authorization": config_script['aaa']['authorization'],
-                "Cisco-IOS-XE-aaa:accounting": config_script['aaa']['accounting'],
+                "Cisco-IOS-XE-aaa:accounting": config_script['aaa']['accounting'][environment.upper()],
                 "Cisco-IOS-XE-aaa:session-id": config_script['aaa']['session-id']
             }
         }

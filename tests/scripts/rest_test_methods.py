@@ -945,7 +945,7 @@ class Restconf_test():
                 },
                 "Cisco-IOS-XE-aaa:authentication": config_script['aaa']['authentication'],
                 "Cisco-IOS-XE-aaa:authorization": config_script['aaa']['authorization'],
-                "Cisco-IOS-XE-aaa:accounting": config_script['aaa']['accounting'],
+                "Cisco-IOS-XE-aaa:accounting": config_script['aaa']['accounting'][self.environment.upper()],
                 "Cisco-IOS-XE-aaa:session-id": config_script['aaa']['session-id']
             }
         }

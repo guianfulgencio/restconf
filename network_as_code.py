@@ -101,7 +101,7 @@ def main():
         device.gateway(l3_property, device_properties)
 
         # AAA configurations
-        device.aaa(region)
+        device.aaa(region, environment.upper())
 
         # save device configuration
         device.save_config()
