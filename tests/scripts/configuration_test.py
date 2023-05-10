@@ -489,14 +489,14 @@ if __name__ == '__main__':
 
     # creating our own parser to parse script arguments
     parser = argparse.ArgumentParser(description = "Test script")
-    #parser.add_argument('--environment', dest = 'environment', type= str)
+    parser.add_argument('--environment', dest = 'environment', type= str)
     parser.add_argument('--username', dest = 'username', type= str)
     parser.add_argument('--password', dest = 'password', type= str)
     args, sys.argv[1:] = parser.parse_known_args(sys.argv[1:])
 
     inventory_file = '../../inventory/phhq_dev.json'
-    '''if args.environment.upper() == 'PROD':
-        inventory_file = '../../inventory/phhq_prod.json'''
+    if args.environment.upper() == 'PROD':
+        inventory_file = '../../inventory/phhq_prod.json'
 
     with open(inventory_file, 'r') as inv_file:
         inventory_dict = json.load(inv_file)
@@ -504,7 +504,7 @@ if __name__ == '__main__':
     # set logger level
     logger.setLevel(logging.INFO)
 
-    #aetest.main(devices=inventory_dict, username=args.username, password=args.password,\
-     #           environment=args.environment)
+    aetest.main(devices=inventory_dict, username=args.username, password=args.password,\
+                environment=args.environment)
     
     aetest.main(devices=inventory_dict, username=args.username, password=args.password)
