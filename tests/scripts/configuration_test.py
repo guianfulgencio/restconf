@@ -506,5 +506,3 @@ if __name__ == '__main__':
 
     aetest.main(devices=inventory_dict, username=args.username, password=args.password,\
                 environment=args.environment)
-    
-    aetest.main(devices=inventory_dict, username=args.username, password=args.password)
