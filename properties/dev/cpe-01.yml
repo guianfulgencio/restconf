@@ -1,0 +1,26 @@
+---
+hostname: cpe-01
+
+location:
+  Facility: PHHQ
+  Address: 6750 Ayala Ave, 6Th Flr, Makati City, Metro Manila
+  Country: Philippines
+  Region: APAC
+  ISO-country-code: PH
+  Support-Org: NA
+  Utility-name: Campus-Metro
+  Criticality: Criticality-Medium
+
+
+
+route:
+  ip-route-interface-forwarding-list:
+  - prefix: 0.0.0.0
+    mask: 0.0.0.0
+    fwd-list:
+    - fwd: 146.40.113.1
+
+management:
+  interface:
+    name: GigabitEthernet
+    number: 1

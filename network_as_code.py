@@ -52,7 +52,7 @@ def main():
             # Location properties
             region = device_properties['location']['Region']
             site_code = device_properties['location']['Facility']
-            mgmt_interface = device_properties['management']['interface']
+            #mgmt_interface = device_properties['management']['interface']
 
             # Vlan properties
             vlan_property = None
@@ -69,13 +69,13 @@ def main():
         # Base compliance configurations
         device.service()
         device.host(device_properties['hostname'])
-        device.user()
-        device.enable()
-        device.call_home()
-        device.domain(site_code, mgmt_interface)
+        #device.user()
+        #device.enable()
+        #device.call_home()
+        #device.domain(site_code, mgmt_interface)
         device.name_server(region)
         device.ip_config()
-        device.ftp_tftp_tacacs(mgmt_interface, environment.upper())
+        #device.ftp_tftp_tacacs(mgmt_interface, environment.upper())
 
         # Layer 2 configuration
         device.vtp(site_code, environment.upper())
@@ -84,8 +84,8 @@ def main():
 
         # Access-list dependent configurations
         device.access_list(region)
-        device.logging(region, mgmt_interface)
-        device.ntp(region, mgmt_interface)
+        #device.logging(region, mgmt_interface)
+        #device.ntp(region, mgmt_interface)
         time.sleep(20)
         device.line(environment.upper())
         device.policy()
@@ -95,13 +95,13 @@ def main():
         device.snmp()
 
         # Interface configurations
-        device.interface(device_properties['interface'])
+        #device.interface(device_properties['interface'])
 
         # Routing configurations
-        device.gateway(l3_property, device_properties)
+        #device.gateway(l3_property, device_properties)
 
         # AAA configurations
-        device.aaa(region, environment.upper())
+        #device.aaa(region, environment.upper())
 
         # save device configuration
         device.save_config()
