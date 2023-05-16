@@ -22,8 +22,8 @@ class Restconf_test():
             "Content-Type": "application/yang-data+json",
             "Accept": "application/yang-data+json"
         }
-        self.compliance = '../../properties/compliance'
-        # self.compliance = 'properties/compliance'
+        self.compliance = '../../properties/compliance_test'
+        # self.compliance = 'properties/compliance_test'
 
     def service(self):
         '''

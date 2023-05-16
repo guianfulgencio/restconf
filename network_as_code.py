@@ -69,30 +69,30 @@ def main():
         # Base compliance configurations
         device.service()
         device.host(device_properties['hostname'])
-        #device.user()
+        device.user()
         #device.enable()
         #device.call_home()
         #device.domain(site_code, mgmt_interface)
-        device.name_server(region)
-        device.ip_config()
+        #device.name_server(region)
+        #device.ip_config()
         #device.ftp_tftp_tacacs(mgmt_interface, environment.upper())
 
         # Layer 2 configuration
-        device.vtp(site_code, environment.upper())
-        device.vlan(environment.upper(), vlan_property)
-        device.spanning_tree()
+        #device.vtp(site_code, environment.upper())
+        #device.vlan(environment.upper(), vlan_property)
+        #device.spanning_tree()
 
         # Access-list dependent configurations
-        device.access_list(region)
+        #device.access_list(region)
         #device.logging(region, mgmt_interface)
         #device.ntp(region, mgmt_interface)
-        time.sleep(20)
-        device.line(environment.upper())
-        device.policy()
+        #time.sleep(20)
+        #device.line(environment.upper())
+        #device.policy()
 
         # SNMP configurations
-        device.snmp_server(environment.upper(),device_properties['location'], mgmt_interface)
-        device.snmp()
+        #device.snmp_server(environment.upper(),device_properties['location'], mgmt_interface)
+        #device.snmp()
 
         # Interface configurations
         #device.interface(device_properties['interface'])
@@ -104,7 +104,7 @@ def main():
         #device.aaa(region, environment.upper())
 
         # save device configuration
-        device.save_config()
+        #device.save_config()
 
 if __name__ == "__main__":
     main()

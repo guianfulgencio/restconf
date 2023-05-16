@@ -28,7 +28,7 @@ class Restconf():
         self.username = username
         self.password = password
         self.hostname = hostname
-        self.compliance = 'properties/compliance'
+        self.compliance = 'properties/compliance_test'
         self.headers = {
             "Content-Type": "application/yang-data+json",
             "Accept": "application/yang-data+json"
