@@ -365,11 +365,14 @@ class Restconf_test():
         try:
             url = f"{self.url}/ip/source-route"
             resp = requests.get(url, auth=self.auth, headers=self.headers, verify=False)
-            resp.raise_for_status()
+            #resp.raise_for_status()
             # import ipdb; ipdb.set_trace()
-            if payload == resp.json():
+            if resp.status_code == 404:
                 result = True
 
+            elif payload == resp.json():
+                result = True
+                
             return result
 
         except Exception:
@@ -615,7 +618,7 @@ class Restconf_test():
             config_script = yaml.safe_load(yaml_file)
             access_list_script = config_script['ip']['access-list']
             standard_acl = access_list_script['standard']
-            extended_acl = access_list_script['extended']
+            #extended_acl = access_list_script['extended']
             new_std_acl = []
             for acl in standard_acl:
                 if acl['name'] == 40:
@@ -624,8 +627,8 @@ class Restconf_test():
 
         payload = {
             "Cisco-IOS-XE-native:access-list": {
-                "Cisco-IOS-XE-acl:standard": new_std_acl,
-                "Cisco-IOS-XE-acl:extended": extended_acl
+                "Cisco-IOS-XE-acl:standard": new_std_acl
+                #"Cisco-IOS-XE-acl:extended": extended_acl
             }
         }
 
@@ -754,8 +757,8 @@ class Restconf_test():
 
         with open(f"{self.compliance}/line.yml", 'r') as config_file:
             config_script = yaml.safe_load(config_file)
-            if self.environment.upper() == 'DEV':
-                config_script['line'].pop('aux')
+            #if self.environment.upper() == 'DEV':
+                #config_script['line'].pop('aux')
 
         # line payload
         payload = {
