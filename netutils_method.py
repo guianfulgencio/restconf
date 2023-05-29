@@ -1,9 +1,9 @@
 import csv
 from netutils.config.compliance import compliance
 import json
-from napalm import get_network_driver
 from rich import print as rprint
 import concurrent.futures
+from pprint import pprint
 
 features = [
 
@@ -19,6 +19,20 @@ features = [
         "ordered": True,
         "section": [
             "enable"
+        ]
+        },
+        {
+        "name": "line",
+        "ordered": True,
+        "section": [
+            "line"
+        ]
+        },
+        {
+        "name": "service",
+        "ordered": True,
+        "section": [
+            "servicec"
         ]
         },
          {
@@ -48,6 +62,62 @@ features = [
         "section": [
             "ntp"
         ]
+        },
+        {
+        "name": "banner",
+        "ordered": True,
+        "section": [
+            "banner"
+        ]
+        },
+        {
+        "name": "snmp",
+        "ordered": True,
+        "section": [
+            "snmp"
+        ]
+        },
+        {
+        "name": "snmp-server",
+        "ordered": True,
+        "section": [
+            "banner"
+        ]
+        },
+        {
+        "name": "logging",
+        "ordered": True,
+        "section": [
+            "logging"
+        ]
+        },
+        {
+        "name": "call-home",
+        "ordered": True,
+        "section": [
+            "call-home"
+        ]
+        },
+        {
+        "name": "policy",
+        "ordered": True,
+        "section": [
+            "policy"
+        ]
+        },
+        {
+        "name": "spanning-tree",
+        "ordered": True,
+        "section": [
+            "spanning-tree"
+        ]
+        },
+        {
+        "name": "vtp",
+        "ordered": True,
+        "section": [
+            "vtp"
+        ]
         }
  ]
 
@@ -58,9 +128,10 @@ csv_report_file = 'compliance_report.csv'
 
 def process_device(host, ip_address):
     backup = f"device_configurations/{environment.lower()}/{host}.txt"
-    intended = f"properties/compliance_netutils/intended.cfg"
+    intended = f"properties/compliance_netutils/intended.txt"
     network_os = "cisco_ios"
     compliance_report = compliance(features, backup, intended, network_os)
+    #pprint(compliance_report)
     return host, compliance_report
 
 
