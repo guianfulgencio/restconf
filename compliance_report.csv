@@ -1,0 +1,3 @@
+Device,username,enable,ip source-route,aaa,tacacs,ntp
+cpe-01,Compliant,Compliant,Non-compliant,Compliant,Compliant,Non-compliant
+cpe-02,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant

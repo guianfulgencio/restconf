@@ -31,7 +31,7 @@ def main():
     environment = args.environment
     username = args.username
     password = args.password
-    inventory_file = f'inventory/phhq_{environment.lower()}.json'
+    inventory_file = f'inventory/host_{environment.lower()}.json'
 
     # Gather device ip address details
     with open(inventory_file, 'r') as inventory:
@@ -56,7 +56,7 @@ def main():
             run_config = device.cli(['show run'])
 
             # Run configuration to be saved in git repo - phhq_device_configurations
-            filename = f"phhq_device_configurations/{environment.lower()}/{host}.txt"
+            filename = f"device_configurations/{environment.lower()}/{host}.txt"
             with open(filename, 'w') as write_output:
                 write_output.write(run_config['show run'])
 
