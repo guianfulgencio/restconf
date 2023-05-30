@@ -1,5 +1,4 @@
 """
-Network-as-code configuration via Restconf
 Main script
 This main script will tie all the config methods defined in
 restconf_methods.py
@@ -16,7 +15,7 @@ import time
 from rich import print as rprint
 from restconf_methods import Restconf
 
-parser = argparse.ArgumentParser(description="Network-as-code configuration via Restconf")
+parser = argparse.ArgumentParser(description="configuration via Restconf")
 parser.add_argument('-e', '--environment', type=str, metavar='',\
     help='Infrastructure environment [PROD/DEV]', required=True)
 parser.add_argument('-u', '--username', type=str, metavar='',\
@@ -27,7 +26,7 @@ args = parser.parse_args()
 
 def main():
     '''
-    Main script for Network-as-code via RESTconf
+    Main script
     '''
     # Initialize variables
     environment = args.environment

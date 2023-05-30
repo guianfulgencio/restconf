@@ -30,4 +30,13 @@ banner login ^CC
       * purposes is expressly prohibited except as otherwise authorized by     *
       * Cisco in writing.                                                      *
       **************************************************************************^C
-
+!
+tacacs server HOU_ACS
+ address ipv4 139.65.136.58
+ key 6 dZGaEZTSVTXhEcHPS\GiZEYbM^CPLSBNdLLNAAB
+ timeout 10
+tacacs server NADC_ACS
+ address ipv4 139.65.143.4
+ key 6 WcC_RM[CNCQTB_MAKL^aXKMeVEIUcFBR^VHFAAB
+ timeout 10
+!

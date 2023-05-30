@@ -6,49 +6,6 @@ import concurrent.futures
 from pprint import pprint
 
 features = [
-
-        {
-        "name": "username",
-        "ordered": True,
-        "section": [
-            "username"
-        ]
-        },
-        {
-        "name": "enable",
-        "ordered": True,
-        "section": [
-            "enable"
-        ]
-        },
-        {
-        "name": "line",
-        "ordered": True,
-        "section": [
-            "line"
-        ]
-        },
-        {
-        "name": "service",
-        "ordered": True,
-        "section": [
-            "servicec"
-        ]
-        },
-         {
-        "name": "ip source-route",
-        "ordered": True,
-        "section": [
-            "ip source-route"
-        ]
-        },
-        {
-         "name": "aaa",
-         "ordered": True,
-         "section": [
-             "aaa group server tacacs+ ACS"
-         ]
-     },
      {
          "name": "tacacs",
          "ordered": True,
@@ -56,69 +13,6 @@ features = [
              "tacacs server"
          ]
      },
-        {
-        "name": "ntp",
-        "ordered": True,
-        "section": [
-            "ntp"
-        ]
-        },
-        {
-        "name": "banner",
-        "ordered": True,
-        "section": [
-            "banner"
-        ]
-        },
-        {
-        "name": "snmp",
-        "ordered": True,
-        "section": [
-            "snmp"
-        ]
-        },
-        {
-        "name": "snmp-server",
-        "ordered": True,
-        "section": [
-            "banner"
-        ]
-        },
-        {
-        "name": "logging",
-        "ordered": True,
-        "section": [
-            "logging"
-        ]
-        },
-        {
-        "name": "call-home",
-        "ordered": True,
-        "section": [
-            "call-home"
-        ]
-        },
-        {
-        "name": "policy",
-        "ordered": True,
-        "section": [
-            "policy"
-        ]
-        },
-        {
-        "name": "spanning-tree",
-        "ordered": True,
-        "section": [
-            "spanning-tree"
-        ]
-        },
-        {
-        "name": "vtp",
-        "ordered": True,
-        "section": [
-            "vtp"
-        ]
-        }
  ]
 
 environment = 'DEV'

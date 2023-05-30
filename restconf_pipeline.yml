@@ -72,7 +72,7 @@
       - script: python3 tests/scripts/configuration_test.py --environment PROD --username $(svc_username) --password "$(svc_password)"
         displayName: "[PROD] - PRECHECK tests"
 
-      - script: python3 network_as_code.py --environment PROD --username $(svc_username) --password "$(svc_password)"        
+      - script: python3 CICD.py --environment PROD --username $(svc_username) --password "$(svc_password)"        
         displayName: "[PROD - Config management using Restconf"
 
       - script: python3 tests/scripts/configuration_test.py --environment PROD --username $(svc_username) --password "$(svc_password)"
