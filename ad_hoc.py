@@ -1,125 +1,26 @@
 import csv
 from netutils.config.compliance import compliance
 import json
+from napalm import get_network_driver
 from rich import print as rprint
 import concurrent.futures
-from pprint import pprint
 
 features = [
-
-        {
+    {
         "name": "username",
         "ordered": True,
         "section": [
             "username"
         ]
-        },
-        {
+    },
+    {
         "name": "enable",
         "ordered": True,
         "section": [
             "enable"
         ]
-        },
-        {
-        "name": "line",
-        "ordered": True,
-        "section": [
-            "line"
-        ]
-        },
-        {
-        "name": "service",
-        "ordered": True,
-        "section": [
-            "servicec"
-        ]
-        },
-         {
-        "name": "ip source-route",
-        "ordered": True,
-        "section": [
-            "ip source-route"
-        ]
-        },
-        {
-         "name": "aaa",
-         "ordered": True,
-         "section": [
-             "aaa group server tacacs+ ACS"
-         ]
-     },
-     {
-         "name": "tacacs",
-         "ordered": True,
-         "section": [
-             "tacacs server"
-         ]
-     },
-        {
-        "name": "ntp",
-        "ordered": True,
-        "section": [
-            "ntp"
-        ]
-        },
-        {
-        "name": "banner",
-        "ordered": True,
-        "section": [
-            "banner"
-        ]
-        },
-        {
-        "name": "snmp",
-        "ordered": True,
-        "section": [
-            "snmp"
-        ]
-        },
-        {
-        "name": "snmp-server",
-        "ordered": True,
-        "section": [
-            "banner"
-        ]
-        },
-        {
-        "name": "logging",
-        "ordered": True,
-        "section": [
-            "logging"
-        ]
-        },
-        {
-        "name": "call-home",
-        "ordered": True,
-        "section": [
-            "call-home"
-        ]
-        },
-        {
-        "name": "policy",
-        "ordered": True,
-        "section": [
-            "policy"
-        ]
-        },
-        {
-        "name": "spanning-tree",
-        "ordered": True,
-        "section": [
-            "spanning-tree"
-        ]
-        },
-        {
-        "name": "vtp",
-        "ordered": True,
-        "section": [
-            "vtp"
-        ]
-        }
- ]
+    }
+]
 
 environment = 'DEV'
 inventory_file = f'inventory/host_{environment.lower()}.json'
@@ -131,7 +32,6 @@ def process_device(host, ip_address):
     intended = f"properties/compliance_netutils/intended.txt"
     network_os = "cisco_ios"
     compliance_report = compliance(features, backup, intended, network_os)
-    #pprint(compliance_report)
     return host, compliance_report
 
 
@@ -153,7 +53,7 @@ if __name__ == "__main__":
     # Prepare data for CSV report
     report_data = {}
     feature_names = [feature["name"] for feature in features]
-    summary_row = {'Device': 'Total Non-compliant'}
+    summary_row = {'Device': 'Non-compliant'}
     for feature_name in feature_names:
         summary_row[feature_name] = 0
 
@@ -161,14 +61,13 @@ if __name__ == "__main__":
         device_row = {'Device': host}
         for feature_name in feature_names:
             compliant = result.get(feature_name, {}).get('compliant', False)
-            compliant = 'Compliant' if compliant == True else 'Non-compliant'
             device_row[feature_name] = compliant
-            if compliant == 'Non-compliant':
+            if not compliant:
                 summary_row[feature_name] += 1
         report_data[host] = device_row
 
     # Add summary row to report data
-    report_data['Total Non-compliant'] = summary_row
+    report_data['Non-compliant'] = summary_row
 
     # Create the CSV report
     with open(csv_report_file, 'w', newline='') as csv_file:

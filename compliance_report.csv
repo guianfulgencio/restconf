@@ -1,3 +1,4 @@
 Device,username,enable,line,service,ip source-route,aaa,tacacs,ntp,banner,snmp,snmp-server,logging,call-home,policy,spanning-tree,vtp
 cpe-01,Compliant,Compliant,Non-compliant,Compliant,Non-compliant,Compliant,Compliant,Non-compliant,Compliant,Compliant,Compliant,Compliant,Non-compliant,Compliant,Compliant,Compliant
 cpe-02,Compliant,Compliant,Non-compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant,Compliant
+Total Non-compliant,0,0,2,0,1,0,0,1,0,0,0,0,1,0,0,0
