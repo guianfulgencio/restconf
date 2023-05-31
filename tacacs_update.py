@@ -25,7 +25,9 @@ def process_device(host, ip_address):
     intended = f"properties/compliance_netutils/intended_US.txt"
     network_os = "cisco_ios"
     compliance_report = compliance(features, backup, intended, network_os)
-    #pprint(compliance_report)
+    #pprint(compliance_report['tacacs']['missing'])
+    #pprint(compliance_report['tacacs']['extra'])
+    pprint(compliance_report['tacacs'])
     return host, compliance_report
 
 
